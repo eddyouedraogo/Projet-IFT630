@@ -1,6 +1,7 @@
 package main;
 
 import client.*;
+import trainstation.Gare;
 //import train.*;
 //import trainstation.*;
 //import java.util.concurrent.*;
@@ -15,7 +16,7 @@ public class Main {
 		 */
 
 
-		try
+		/*try
 		{
 			Gare.getInstance().initGare();
 		}
@@ -23,7 +24,7 @@ public class Main {
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} */
 
 	}
 

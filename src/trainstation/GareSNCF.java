@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 import java.util.List;
 import train.*;
 
-public class GareDeLyon {
+public class GareSNCF {
 
 	
 	private ArrayList<Train> trains = new ArrayList<Train>();

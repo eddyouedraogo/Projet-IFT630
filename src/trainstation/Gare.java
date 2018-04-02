@@ -14,20 +14,21 @@ public class Gare implements Runnable{
 
 	//singleton
 	private static Gare instance=null ;    
-	public static Gare getInstance()
+	
+	/*public static Gare getInstance()
 	{
 		if (instance == null) 
-			instance = new Aeroport();
+		instance = new Aeroport();
 		return instance;
-	}
+	}*/
 	
 	private ArrayList<Train> trains = new ArrayList<Train>();
 
     private Gare()
     {
-        aiguilleur = new Aiguilleur();
-        voies = new Voies();
-        gareSNCF   = new GareSNCF();
+        Aiguilleur aiguilleur = new Aiguilleur();
+        Voies voies = new Voies();
+        GareSNCF gareSNCF = new GareSNCF();
     }
 	
     public void  initGare() throws InterruptedException
@@ -72,7 +73,7 @@ public class Gare implements Runnable{
 	}
 
 	public void setTrains(List<Train> trains) {
-		this.trains = trains;
+		this.trains = (ArrayList<Train>) trains;
 	}
 
 	public int getCapacite() {
