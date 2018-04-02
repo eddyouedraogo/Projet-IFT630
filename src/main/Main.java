@@ -14,9 +14,9 @@ public class Main {
 		 * 1- ajout du FRAME CLASS gare de LYON 
 		 * 2- instanciation GARE
 		 */
+		System.out.println("test compilation");
 
-
-		/*try
+		try
 		{
 			Gare.getInstance().initGare();
 		}
@@ -24,7 +24,7 @@ public class Main {
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} */
+		} 
 
 	}
 

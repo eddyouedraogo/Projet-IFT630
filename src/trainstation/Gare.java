@@ -15,12 +15,12 @@ public class Gare implements Runnable{
 	//singleton
 	private static Gare instance=null ;    
 	
-	/*public static Gare getInstance()
+	public static Gare getInstance()
 	{
 		if (instance == null) 
-		instance = new Aeroport();
+		instance = new Gare();
 		return instance;
-	}*/
+	}
 	
 	private ArrayList<Train> trains = new ArrayList<Train>();
 
