@@ -8,6 +8,28 @@ import client.Voyageur;
 
 public class Train  implements Runnable{
 	
+	
+	/**
+	 * Donner des états aux trains afin de mieux gerer l'exclusion mutuelle
+	 * 
+	 * 
+	 */
+	
+    static final int ETAT_EN_GARE = 1;
+    static final int ETAT_EN_MARCHE = 2;
+    static final int ETAT_SORTIE_DE_GARE = 3;
+    static final int ETAT_ENTREE_EN_GARE = 4;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private int id;
 	private int type;
 	private String Destination;

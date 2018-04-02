@@ -3,7 +3,6 @@ package trainstation;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 import java.util.List;
-
 import train.*;
 
 public class Gare implements Runnable{
@@ -11,6 +10,33 @@ public class Gare implements Runnable{
 	String processName;
 	private int stationID;
 	private int capacite;
+	private String stationName;
+
+	//singleton
+	private static Gare instance=null ;    
+	public static Gare getInstance()
+	{
+		if (instance == null) 
+			instance = new Aeroport();
+		return instance;
+	}
+	
+	private ArrayList<Train> trains = new ArrayList<Train>();
+
+    private Gare()
+    {
+        aiguilleur = new Aiguilleur();
+        voies = new Voies();
+        gareSNCF   = new GareSNCF();
+    }
+	
+    public void  initGare() throws InterruptedException
+    {
+        /***
+         * initialiser des trains en gare a lexecution du programme
+         * initialiser des trains qui demandent a entrer en gare
+         */
+    }
 	
 	public int getStationID() {
 		return stationID;
@@ -20,9 +46,7 @@ public class Gare implements Runnable{
 		this.stationID = stationID;
 	}
 
-	private String stationName;
-	
-	
+
 	public String getStationName() {
 		return stationName;
 	}
@@ -31,8 +55,7 @@ public class Gare implements Runnable{
 		this.stationName = stationName;
 	}
 
-	private List<Train> trains = new ArrayList<Train>();
-	
+
 	public Gare(Semaphore sem, String processName) {
 		this.sem = sem;
 		this.processName = processName;
@@ -41,7 +64,7 @@ public class Gare implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public List<Train> getTrains() {
