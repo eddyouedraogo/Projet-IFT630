@@ -13,6 +13,9 @@ public class Chauffeur extends Personnes{
 		
 	}
 
+	
+//	etat
+	
 	public boolean isOnStrike() {
 		return isOnStrike;
 	}

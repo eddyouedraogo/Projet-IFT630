@@ -14,34 +14,34 @@ public class Gare {
 
 	//singleton
 	private static Gare instance=null ;    
-	
+
 	public static Gare getInstance()
 	{
 		if (instance == null) 
-		instance = new Gare();
+			instance = new Gare();
 		return instance;
 	}
-	
+
 	private ArrayList<Train> trains = new ArrayList<Train>();
 	private Aiguilleur aiguilleur;
 	private Voies voies;
 	private GareSNCF gareSNCF;
 
-    private Gare()
-    {
-         aiguilleur = new Aiguilleur();
-         voies = new Voies();
-         gareSNCF = new GareSNCF();
-    }
-	
-    public void  initGare() throws InterruptedException
-    {
-        /***
-         * initialiser des trains en gare a lexecution du programme
-         * initialiser des trains qui demandent a entrer en gare
-         */
-    }
-	
+	private Gare()
+	{
+		aiguilleur = new Aiguilleur();
+		voies = new Voies();
+		gareSNCF = new GareSNCF();
+	}
+
+	public void  initGare() throws InterruptedException
+	{
+		/***
+		 * initialiser des trains en gare a lexecution du programme
+		 * initialiser des trains qui demandent a entrer en gare
+		 */
+	}
+
 	public int getStationID() {
 		return stationID;
 	}
@@ -81,22 +81,27 @@ public class Gare {
 	public void setCapacite(int capacite) {
 		this.capacite = capacite;
 	}
-//    public Train TrainEnGare() throws InterruptedException
-//    {   
-//        
-//	Train train  = creerTrainEnGare(Train.getnomTrain(), Train.getId(), capacite);
-////      train.();
-//      return train;
-//    }
-//
-//	private Train creerTrainEnGare() {
-//		// TODO Auto-generated method stub
-//		String nom = "LE TGV " + idtrain + " a été créé " ;
-//		Train train = new Train(nomTrain, idtrain , capacite)
-//		return train;
-//	}
-	
-	
-    
+
+	//rajouter un chauffeur <
+	//	initialiser liste de chauffeur 
+
+	//	public Train TrainEnGare() throws InterruptedException
+	//    {   
+	//        condition avant de creer le train
+	//		si le state du chauffeur n'est pas en greve alors on creer le train
+	//	Train train  = creerTrainEnGare(Train.getnomTrain(), Train.getId(), capacite);
+	////      train.();
+	//      return train;
+	//    }
+	//
+	//	private Train creerTrainEnGare() {
+	//		// TODO Auto-generated method stub
+	//		String nom = "LE TGV " + idtrain + " a été créé " ;
+	//		Train train = new Train(nomTrain, idtrain , capacite)
+	//		return train;
+	//	}
+
+
+
 
 }
