@@ -2,7 +2,7 @@ package client;
 
 import java.util.concurrent.*;
 
-public class Voyageur extends Personnes implements Runnable{
+public class Voyageur extends Personnes{
 
 	Semaphore sem;
 	String processName;
@@ -12,10 +12,5 @@ public class Voyageur extends Personnes implements Runnable{
 		this.processName = processName;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

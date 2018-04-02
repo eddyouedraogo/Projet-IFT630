@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 import java.util.List;
 import train.*;
 
-public class Gare implements Runnable{
+public class Gare {
 	Semaphore sem;
 	String processName;
 	private int stationID;
@@ -23,12 +23,15 @@ public class Gare implements Runnable{
 	}
 	
 	private ArrayList<Train> trains = new ArrayList<Train>();
+	private Aiguilleur aiguilleur;
+	private Voies voies;
+	private GareSNCF gareSNCF;
 
     private Gare()
     {
-        Aiguilleur aiguilleur = new Aiguilleur();
-        Voies voies = new Voies();
-        GareSNCF gareSNCF = new GareSNCF();
+         aiguilleur = new Aiguilleur();
+         voies = new Voies();
+         gareSNCF = new GareSNCF();
     }
 	
     public void  initGare() throws InterruptedException
@@ -62,11 +65,6 @@ public class Gare implements Runnable{
 		this.processName = processName;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public List<Train> getTrains() {
 		return trains;
@@ -83,5 +81,22 @@ public class Gare implements Runnable{
 	public void setCapacite(int capacite) {
 		this.capacite = capacite;
 	}
+//    public Train TrainEnGare() throws InterruptedException
+//    {   
+//        
+//	Train train  = creerTrainEnGare(Train.getnomTrain(), Train.getId(), capacite);
+////      train.();
+//      return train;
+//    }
+//
+//	private Train creerTrainEnGare() {
+//		// TODO Auto-generated method stub
+//		String nom = "LE TGV " + idtrain + " a été créé " ;
+//		Train train = new Train(nomTrain, idtrain , capacite)
+//		return train;
+//	}
+	
+	
+    
 
 }

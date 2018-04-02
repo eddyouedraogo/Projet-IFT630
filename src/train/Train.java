@@ -15,32 +15,38 @@ public class Train  implements Runnable{
 	 * 
 	 */
 	
-    static final int ETAT_EN_GARE = 1;
+    private static final int ETAT_EN_GARE = 1;
     static final int ETAT_EN_MARCHE = 2;
     static final int ETAT_SORTIE_DE_GARE = 3;
     static final int ETAT_ENTREE_EN_GARE = 4;
+    static final int ETAT_ENTREE_EN_PANNE = 5;
+    static final int ETAT_ENTREE_EN_GREVE = 6;
+    
+	
+	
+	
+	
+	/**
+	 * Creer train
+	 */
+	
+    
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	private int id;
 	private int type;
 	private String Destination;
 	private Chauffeur chauffeur;
-	private int capacite;
 	
 	private List<Voyageur> voyageurs = new ArrayList<Voyageur>();
 	Semaphore sem;
-	String processName;
+	private static String nomTrain;
+	private static int id;
+	private int capacite;
 	
-	public long getId() {
+	public static  long getId() {
 		return id;
 	}
 
@@ -64,9 +70,10 @@ public class Train  implements Runnable{
 		Destination = destination;
 	}
 
-	public Train(Semaphore sem, String processName) {
-		this.sem = sem;
-		this.processName = processName;
+	public Train(String  nomTrain, int id , int capacite) {
+		this.nomTrain = nomTrain;
+		this.id = id;
+		this.capacite = capacite;
 	}
 
 	@Override
@@ -94,9 +101,16 @@ public class Train  implements Runnable{
 	public int getCapacite() {
 		return capacite;
 	}
+	public static String  getnomTrain() {
+		return nomTrain;
+	}
 
 	public void setCapacite(int capacite) {
 		this.capacite = capacite;
+	}
+
+	public static int getEtatEnGare() {
+		return ETAT_EN_GARE;
 	}
 
 }

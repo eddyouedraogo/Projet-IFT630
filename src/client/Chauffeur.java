@@ -1,7 +1,7 @@
 package client;
 import java.util.concurrent.*;
 
-public class Chauffeur extends Personnes implements Runnable{
+public class Chauffeur extends Personnes{
 	
 	private boolean isOnStrike;
 	Semaphore sem;
@@ -20,10 +20,5 @@ public class Chauffeur extends Personnes implements Runnable{
 		this.isOnStrike = isOnStrike;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
