@@ -6,22 +6,18 @@ import java.util.List;
 import train.*;
 
 public class Quais {
-
-
-
 	/**
-	 * GESTION DE L'ENTRÉE EN GARE DES TRAINS
+	 * GESTION DE L'ENTRÉE EN GARE DES TRAINS  "sur les QUAIS"
 	 * instancier les trains 
 	 * gestion des semaphores
 	 * exclusion mutuelles sur les regions critiques
 	 */
-
-	static final int NOMBRE_DE_QUAIS = 5;
+	static final int NOMBRE_DE_QUAIS = 10;
 	Train[] locomotive = new Train[NOMBRE_DE_QUAIS];
 
-	private static Semaphore mutex = new Semaphore(1);
-	//	creation tableau de semaphore pour les 5 quais
-	private static Semaphore[] semaphore = new Semaphore[NOMBRE_DE_QUAIS];
+	private static Semaphore mutexQuais = new Semaphore(1);
+	//	creation tableau de semaphore pour les 10 quais
+	private static Semaphore[] semaphoreQuais = new Semaphore[NOMBRE_DE_QUAIS];
 	private static Semaphore entreeQuai = new Semaphore(NOMBRE_DE_QUAIS);
 
 	/**
@@ -30,12 +26,12 @@ public class Quais {
 
 	public Quais ()
 	{
+//		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
+//			locomotive[i] =null;
+//		}
+
 		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
-			locomotive[i] =null;
-		}
-		
-		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
-			semaphore[i] = new Semaphore(1);
+			semaphoreQuais[i] = new Semaphore(1);
 		}
 
 	}	
@@ -51,10 +47,10 @@ public class Quais {
 	{
 		entreeQuai.acquire();
 		//rechercher un quai de disponible et de libre en exclusion mutuelle 
-		mutex.acquire();
+		mutexQuais.acquire();
 		int numeroQuai = rechercheQuaiDispo();
 		locomotive[numeroQuai] = train;
-		mutex.release();
+		mutexQuais.release();
 	}
 
 	private int rechercheQuaiDispo() {
@@ -73,14 +69,14 @@ public class Quais {
 	 *  release du semaphore dentree sur le quai
 	 */
 	public void quitterQuais (Train train) throws InterruptedException {
-		
+
 		int numeroQuai = rechercheQuaiAliberer(train);
-		
-		semaphore[numeroQuai].acquire();
+
+		semaphoreQuais[numeroQuai].acquire();
 		// aucun train n'occupe ce quai anymore
 		locomotive[numeroQuai] = null;
-		semaphore[numeroQuai].release();
-		
+		semaphoreQuais[numeroQuai].release();
+
 		entreeQuai.release();
 	}
 
