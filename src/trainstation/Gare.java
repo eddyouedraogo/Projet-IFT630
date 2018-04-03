@@ -23,13 +23,13 @@ public class Gare {
 	}
 
 	private ArrayList<Train> trains = new ArrayList<Train>();
-	private Aiguilleur aiguilleur;
+	private Quais aiguilleur;
 	private Voies voies;
 	private GareSNCF gareSNCF;
 
 	private Gare()
 	{
-		aiguilleur = new Aiguilleur();
+		aiguilleur = new Quais();
 		voies = new Voies();
 		gareSNCF = new GareSNCF();
 	}
