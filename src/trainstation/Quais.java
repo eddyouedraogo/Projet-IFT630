@@ -2,24 +2,37 @@ package trainstation;
 
 import java.util.ArrayList;
 import java.util.concurrent.*;
+
+import client.Voyageur;
+
 import java.util.List;
 import train.*;
 
 public class Quais {
 	/**
-	 * GESTION DE L'ENTRÉE EN GARE DES TRAINS  "sur les QUAIS"
+	 * GESTION DE L'ENTRï¿½E EN GARE DES TRAINS  "sur les QUAIS"
 	 * instancier les trains 
 	 * gestion des semaphores
 	 * exclusion mutuelles sur les regions critiques
 	 */
 	static final int NOMBRE_DE_QUAIS = 10;
 	Train[] locomotive = new Train[NOMBRE_DE_QUAIS];
-
 	private static Semaphore mutexQuais = new Semaphore(1);
 	//	creation tableau de semaphore pour les 10 quais
 	private static Semaphore[] semaphoreQuais = new Semaphore[NOMBRE_DE_QUAIS];
 	private static Semaphore entreeQuai = new Semaphore(NOMBRE_DE_QUAIS);
-
+	
+	/**
+	 * Ajout de passager sur le quais,
+	 * Chaque quais a une capacite fixer
+	 */
+	 private static int CAPACITE = 35;
+	 Voyageur[] passagers = new Voyageur[CAPACITE];
+	 
+	 private static Semaphore mutexPassager = new Semaphore(1);
+	 private static Semaphore[] semaphorePassager = new Semaphore[CAPACITE];
+	 private static Semaphore accessPassager = new Semaphore(CAPACITE);
+	 
 	/**
 	 * instanciation d'un tableau de semaphore
 	 */
@@ -33,13 +46,20 @@ public class Quais {
 		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
 			semaphoreQuais[i] = new Semaphore(1);
 		}
-
+		
+		for(int i=0; i<CAPACITE; i++) {
+			semaphorePassager[i] = new Semaphore(1);
+		}
+		//Initialisation de la taille des quais
+		for(int i=0; i<locomotive.length; i++) {
+			locomotive[i].setSizeQuais(CAPACITE);
+		}
 	}	
 
 	/**
 	 * demander l'autorisation d'entrer dans un quai si l'un des 5 est disponible
 	 * l'entree sur le quai se fait avec un semaphore
-	 * La recherche d'un quai de libre se fait en exclusion mutuelle (ressource partagée)
+	 * La recherche d'un quai de libre se fait en exclusion mutuelle (ressource partagï¿½e)
 	 * @param Train train
 	 * @throws InterruptedException
 	 */
@@ -93,8 +113,51 @@ public class Quais {
 		}
 		return 0;
 	}
-
-
-
-
+	
+	public void rechercheQuaisLibre(Voyageur v, int idQuais) throws InterruptedException{
+		accessPassager.acquire();
+		mutexPassager.acquire();
+		int quaiId = getQuais();
+		int placeId = ajouterPassagerAuQuai(
+				locomotive[quaiId].getPassagerQuais());
+		locomotive[quaiId].ajouterAuQuais(placeId, v);
+		mutexPassager.release();
+	}
+	/**
+	 * Cette fonction nous permet de rechercher un Quais dans lequel se trouve un train
+	 * Et dont le quai n'est pas plein
+	 * @return
+	 */
+	public int getQuais() {
+		for(int i=0; i<NOMBRE_DE_QUAIS;i++) {
+			if(locomotive[i]!=null && locomotive[i].getSizeQuais()<CAPACITE) {
+				return i;
+			}
+		}
+		return 0;
+	}
+	/**
+	 * On cherche une place disponible sur le quais ou on peut ajouter un train 
+	 * @param vs
+	 * @return
+	 */
+	public int ajouterPassagerAuQuai(Voyageur[] vs) {
+		for(int i=0; i<vs.length; i++) {
+			if(vs[i]==null) {
+				return i;
+			}
+		}
+		return 0;
+	}
+	
+	public void passageentreTrain() {
+		/**
+		 * TODO
+		 *  Passager quitte le quais et entre dans le train relacherla ressources 
+		 */
+	}
+	
+	public int getCapacite() {
+		return CAPACITE;
+	}
 }
