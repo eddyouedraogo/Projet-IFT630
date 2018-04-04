@@ -227,4 +227,12 @@ public class Train {
 	public void ajouterAuQuais(int i, Voyageur v) {
 		passagerQuais[i] = v;
 	}
+	
+	public Voyageur getVoyageurTrain(Voyageur[] vs, int i) {
+		return vs[i];
+	}
+	
+	public void setVoyageurTrainNull(Voyageur[] vs, int i) {
+		vs[i] = null;
+	}
 }

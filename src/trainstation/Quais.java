@@ -50,10 +50,6 @@ public class Quais {
 		for(int i=0; i<CAPACITE; i++) {
 			semaphorePassager[i] = new Semaphore(1);
 		}
-		//Initialisation de la taille des quais
-		for(int i=0; i<locomotive.length; i++) {
-			locomotive[i].setSizeQuais(CAPACITE);
-		}
 	}	
 
 	/**
@@ -70,6 +66,7 @@ public class Quais {
 		mutexQuais.acquire();
 		int numeroQuai = rechercheQuaiDispo();
 		locomotive[numeroQuai] = train;
+		train.setSizeQuais(CAPACITE);
 		mutexQuais.release();
 	}
 
@@ -115,12 +112,18 @@ public class Quais {
 	}
 	
 	public void rechercheQuaisLibre(Voyageur v, int idQuais) throws InterruptedException{
+		//Ajouter un passager au semaphore 
 		accessPassager.acquire();
+		//On monopoliser la ressource
 		mutexPassager.acquire();
+		//On cherche un quai libre
 		int quaiId = getQuais();
+		//On cherche une place disponible sur le quai
 		int placeId = ajouterPassagerAuQuai(
 				locomotive[quaiId].getPassagerQuais());
+		//On ajoute le voyageur sur le quai
 		locomotive[quaiId].ajouterAuQuais(placeId, v);
+		//Et on relache la ressource
 		mutexPassager.release();
 	}
 	/**
@@ -130,31 +133,94 @@ public class Quais {
 	 */
 	public int getQuais() {
 		for(int i=0; i<NOMBRE_DE_QUAIS;i++) {
+			//Chercher un quai sur le train il existe deja et le quai n'est pas plein
 			if(locomotive[i]!=null && locomotive[i].getSizeQuais()<CAPACITE) {
+				//On retourne l'id du quai
 				return i;
 			}
 		}
 		return 0;
 	}
 	/**
-	 * On cherche une place disponible sur le quais ou on peut ajouter un train 
+	 * On cherche une place disponible sur le quais ou on peut ajouter un passager 
 	 * @param vs
 	 * @return
 	 */
 	public int ajouterPassagerAuQuai(Voyageur[] vs) {
+		//Cherche une place disponible sur le quai ou on peut placer le passager
 		for(int i=0; i<vs.length; i++) {
 			if(vs[i]==null) {
+				//On retourne l'id de la place trouver
 				return i;
 			}
 		}
 		return 0;
 	}
 	
-	public void passageentreTrain() {
-		/**
-		 * TODO
-		 *  Passager quitte le quais et entre dans le train relacherla ressources 
-		 */
+	/**
+	 * Le passager quitte le quais et va dans le train
+	 * @param v
+	 * @throws InterruptedException
+	 */
+	public void passageentreTrain(Voyageur v) throws InterruptedException {
+		//On cherche la position du voyageur
+		int idVoyageur = rechercherVoyageur(v);
+		//Elle la meme que dans le semaphore 
+		semaphorePassager[idVoyageur].acquire();
+		//On recupere aussi le quai sur lequel se trouve le passager
+		//Pour pouvoir le retirer du bon quais
+		int idQuais = rechercherQuaisVoyageur(v);
+		//On retire ensuite le voyageur du quai 
+		locomotive[idQuais].setVoyageurTrainNull(locomotive[idQuais].getPassagerQuais(),idVoyageur);
+		semaphorePassager[idVoyageur].release();
+		
+		accessPassager.release();
+		
+	}
+	
+	/**
+	 * Cette fonction nous permets de recuperer le quais sur lequel se trouve le passager que l'on cherche
+	 * @param v
+	 * @return
+	 */
+	public int rechercherQuaisVoyageur(Voyageur v) {
+		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
+			//Si le quai existe
+			if(locomotive[i]!=null) {
+				//On recherche sur le quais 
+				for(int j=0; j<locomotive[i].getSizeQuais(); j++) {
+					//Si on trouve le voyageur
+					if(v.equals(locomotive[i].getVoyageurTrain(locomotive[i].getPassagerQuais(),j))) {
+						//On retourne le quai sur lequel il se trouve
+						return i;
+					}
+					
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * On retourne l'id de la place dans laquelle se trouve le passager sur le quai
+	 * @param v
+	 * @return
+	 */
+	public int rechercherVoyageur(Voyageur v) {
+		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
+			//Si le quai existe 
+			if(locomotive[i]!=null) {
+				//Acceder au nombre de passager existant sur le quais
+				for(int j=0; j<locomotive[i].getSizeQuais(); j++) {
+					//Verifier si le passager ce trouve sur le quai
+					if(v.equals(locomotive[i].getVoyageurTrain(locomotive[i].getPassagerQuais(),j))) {
+						//Retourner la position sur le quai qui correspondra aussi a celui du semaphore
+						return j;
+					}
+				}
+			}
+		}
+		return 0;
 	}
 	
 	public int getCapacite() {
