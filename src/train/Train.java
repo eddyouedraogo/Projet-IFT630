@@ -267,7 +267,53 @@ public class Train {
 		case ETAT_ENTREE_EN_GARE:  break;                
 		}        
 	}  
-	private void entreeEnGareTrain() {
+
+	public static int getEtatEnRotation() {
+		// TODO Auto-generated method stub
+		return ETAT_EN_MARCHE;
+	}
+	
+	/**
+	 * list des fonctions detats
+	 */
+	public void trainEnRotationEnMarche() {
+		// TODO Auto-generated method stub
+		etat = ETAT_EN_MARCHE;
+		rotationTrain(); //TODO
+	}
+	public void surLeQuai() {
+		// TODO Auto-generated method stub
+		etat = ETAT_EN_GARE;
+		trainSurQuai(); //ok
+	}
+	public void entreeEnGare() {
+		// TODO Auto-generated method stub
+		etat = ETAT_ENTREE_EN_GARE;
+		entreeEnGareDuTrain();
+	}
+
+
+	public void sortiedeGare() {
+		// TODO Auto-generated method stub
+		etat = ETAT_SORTIE_DE_GARE;
+		sortieDeGareTrain(); //TODO
+	}
+	
+
+	/**
+	 * Les actions relatives aux etats et changement detat sont a ecrire ci apres
+	 * 
+	 */
+	private void sortieDeGareTrain() {
+		// TODO Auto-generated method stub
+		
+	}
+	private void entreeEnGareDuTrain() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void trainSurQuai() {
 		// TODO Auto-generated method stub
 		/**
 		 * quand le train sarrete sur le quai final
@@ -330,16 +376,5 @@ public class Train {
 		};
 		thread.start();
 
-	}
-
-	public void surLeQuai() {
-		// TODO Auto-generated method stub
-		etat = ETAT_EN_GARE;
-
-	}
-
-	public static int getEtatEnRotation() {
-		// TODO Auto-generated method stub
-		return ETAT_EN_MARCHE;
 	}
 }
