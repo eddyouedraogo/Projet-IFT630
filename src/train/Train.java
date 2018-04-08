@@ -7,32 +7,34 @@ import client.Chauffeur;
 import client.Voyageur;
 
 public class Train {
-	
-	
+
+
 	/**
 	 * Donner des �tats aux trains afin de mieux gerer l'exclusion mutuelle
 	 * 
 	 * 
 	 */
-	
-    private static final int ETAT_EN_GARE = 1;
-    static final int ETAT_EN_MARCHE = 2;
-    static final int ETAT_SORTIE_DE_GARE = 3;
-    static final int ETAT_ENTREE_EN_GARE = 4;
-    static final int ETAT_ENTREE_EN_PANNE = 5;
-    static final int ETAT_ENTREE_EN_GREVE = 6;
-    public static final int CAP = 25;
-  
-	
+
+	private static final int ETAT_EN_GARE = 1;
+	static final int ETAT_EN_MARCHE = 2;
+	static final int ETAT_SORTIE_DE_GARE = 3;
+	static final int ETAT_ENTREE_EN_GARE = 4;
+	static final int ETAT_ENTREE_EN_PANNE = 5;
+	static final int ETAT_ENTREE_EN_GREVE = 6;
+	public static final int CAP = 25;
+
+	int etat;
+
+
 	/**
 	 * Creer train
 	 * Avec un chauffeur, une capacite et une liste de passagers
 	 */
-	
+
 	private int type;
 	private String Destination;
 	private Chauffeur chauffeur;
-	
+
 	private static String nomTrain;
 	private static int id;
 	static final int capacite = 25;
@@ -40,7 +42,7 @@ public class Train {
 	Voyageur[] passagers = new Voyageur[capacite];
 	//Ajout de quais pour pouvoir positionner des passager
 	Voyageur[] passagerQuais;
-	
+
 	/**
 	 * Semaphore represantant les passagers et le chauffeur
 	 * exclusion mutuelle pour gerer les places
@@ -50,12 +52,12 @@ public class Train {
 	private static Semaphore accessTrain = new Semaphore(capacite);
 	private static Semaphore semaphoreChauffeur = new Semaphore(1);
 
-	
+
 	/**
 	 * Gestion des passagers dans le trains
 	 */
-	
-	public static  long getId() {
+
+	public static  int getId() {
 		return id;
 	}
 
@@ -84,14 +86,14 @@ public class Train {
 	 * @param nomTrain
 	 * @param id
 	 */
-	public Train(String  nomTrain, int id) {
+	public Train(String  nomTrain, int id, int etat) {
 		this.nomTrain = nomTrain;
 		this.id = id;
-		
+		this.etat = etat;
 		for(int i=0; i<capacite; i++) {
 			semaphoreTrain[i] = new Semaphore(1);
 		}
-		
+
 	}
 	/**
 	 * fonction qui fait entree un passager dans le train 
@@ -134,7 +136,7 @@ public class Train {
 		semaphoreTrain[idSiege].release();
 		accessTrain.release();
 	}
-	
+
 	/**
 	 * Verifier si le passager est dans le train
 	 * @param v
@@ -148,7 +150,7 @@ public class Train {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Cette fonction affecte un chauffeur au train 
 	 * et s'attribue la ressource jusqu'a ce que le chauffeur finisse
@@ -162,7 +164,7 @@ public class Train {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * On verifie si le chauffeur est bien celui qui conduit le train
 	 * Si oui on arrete son service et on relache la ressource
@@ -193,16 +195,16 @@ public class Train {
 	public static int getEtatEnGare() {
 		return ETAT_EN_GARE;
 	}
-	
+
 	/**
 	 * Permet de fixer la taille du quais que l'on pourra utiliser dans la classe quais
 	 * @param i
 	 */
-	
+
 	public void setSizeQuais(int i) {
 		passagerQuais = new Voyageur[i];
 	}
-	
+
 	/**
 	 * Get Taille du quais 
 	 * @return
@@ -210,7 +212,7 @@ public class Train {
 	public int getSizeQuais() {
 		return passagerQuais.length;
 	}
-	
+
 	/**
 	 * On retourne la liste des passager sur le quais
 	 * @return
@@ -218,7 +220,7 @@ public class Train {
 	public Voyageur[] getPassagerQuais() {
 		return passagerQuais;
 	}
-	
+
 	/**
 	 * On ajoute des passager sur le quais
 	 * @param i
@@ -227,12 +229,89 @@ public class Train {
 	public void ajouterAuQuais(int i, Voyageur v) {
 		passagerQuais[i] = v;
 	}
-	
+
 	public Voyageur getVoyageurTrain(Voyageur[] vs, int i) {
 		return vs[i];
 	}
-	
+
 	public void setVoyageurTrainNull(Voyageur[] vs, int i) {
 		vs[i] = null;
+	}
+	/***
+	 * getteur et seteur de l'etat
+	 */
+	public int getState()
+	{
+		return etat;
+	}
+
+	public void setState(int nouvelEtat)
+	{
+		etat = nouvelEtat;
+		//	        setImage(etat);
+		switch (etat)
+		{
+		case ETAT_EN_GARE:  break;
+		case ETAT_EN_MARCHE:  
+//			try
+//			{
+				//rotation signifie que le train est en marche sur des rail a lexterieur de la gare 
+				rotationTrain();
+//			}
+//			catch (InterruptedException e)
+//			{
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} 
+			break;
+		case ETAT_SORTIE_DE_GARE:  break;
+		case ETAT_ENTREE_EN_GARE:  break;                
+		}        
+	}    
+	private void rotationTrain() {
+		// TODO Auto-generated method stub
+		/**
+		 * 
+		 */
+		Thread thread = new Thread()
+		{
+			public void run()
+			{                   
+//				setImage(ETAT_EN_MARCHE);                
+//				Rectangle r = Aeroframe.getInstance().getBounds();               
+//				Point pd = makePoint(0,0);
+//				Point pf = makePoint(0,0);
+//				Point p=pd;                
+
+				while (true)
+				{
+					if (etat != ETAT_EN_MARCHE) break;
+
+//					if ((p.x == pf.x)&&(p.y == pf.y)){  
+//						pd = makePoint(getRandom(0, r.width), r.height);
+//						pf = makePoint(r.width, r.height-(r.width-pd.x));
+//						p=pd;
+//					}                      
+//
+//					p = getNextPoint(p, pf);
+
+					try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+//					setPosition(p);
+				}
+			}                       
+		};
+		thread.start();
+
+	}
+
+	public void surLeQuai() {
+		// TODO Auto-generated method stub
+		etat = ETAT_EN_GARE;
+
+	}
+
+	public static int getEtatEnRotation() {
+		// TODO Auto-generated method stub
+		return ETAT_EN_MARCHE;
 	}
 }
