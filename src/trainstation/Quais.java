@@ -226,4 +226,27 @@ public class Quais {
 	public int getCapacite() {
 		return CAPACITE;
 	}
+
+	public void demandeEntreeSurQuai(Train locomotiveRecue) throws InterruptedException {
+		// TODO Auto-generated method stub
+		entreeQuai.acquire();
+		mutexQuais.acquire();
+		int numeroQuai = getQuaiDispo();
+		locomotive[numeroQuai]= locomotiveRecue;
+		mutexQuais.release();
+		
+	}
+	/**
+	 * methode donant les quais ou le train pourra se mettre donc dispo
+	 * @return
+	 */
+
+	private int getQuaiDispo() {
+		// TODO Auto-generated method stub
+		for(int k =0; k< NOMBRE_DE_QUAIS ;k++) {
+			if(locomotive[k] == null)
+				return k;
+		}
+		return 0;
+	}
 }

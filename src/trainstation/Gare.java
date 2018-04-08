@@ -12,7 +12,7 @@ public class Gare {
 	private int capacite;
 	private String stationName;
 
-	//singleton
+	//utilisation d'un singleton
 	private static Gare instance=null ;    
 
 	public static Gare getInstance()
@@ -23,15 +23,15 @@ public class Gare {
 	}
 
 	private ArrayList<Train> trains = new ArrayList<Train>();
-	private Quais aiguilleur;
-	private Voies voies;
-	private GareSNCF gareSNCF;
+	public Quais aiguilleur;
+	Voies voies;
+	ReseauFerroviere reseauFerroviere;
 
 	private Gare()
 	{
 		aiguilleur = new Quais();
 		voies = new Voies();
-		gareSNCF = new GareSNCF();
+		reseauFerroviere = new ReseauFerroviere();
 	}
 
 	public void  initGare() throws InterruptedException
@@ -39,7 +39,50 @@ public class Gare {
 		/***
 		 * initialiser des trains en gare a lexecution du programme
 		 * initialiser des trains qui demandent a entrer en gare
+		 * initilisaton de personnes sur les quais PARTIE EDDY
 		 */
+		//		intialisation de 5 trains en gare
+		for(int k=0 ; k<5;k++)
+			System.out.println("init des gares");
+			nouveauTrainEnGare();
+		//		intialisation de 15 trains en rotation
+		for(int j=0 ; j<5;j++)
+			System.out.println("init des trains en rotation");
+			nouveauTrainEnRotation();
+	}
+
+    public void retirerAvion(Train trainRecu)
+    {
+        for (int i=0; i < trains.size()-1; i++ )
+            if (trainRecu.equals(trains.get(i)))
+            {
+            	trains.get(i).finalize(); //  delete de laffichage EDDY
+            	trains.remove(i);                
+            } 
+    }    
+    
+	private Train nouveauTrainEnRotation() {
+		// TODO Auto-generated method stub
+		Train train = creerTrainGeneral(Train.getEtatEnRotation());
+		reseauFerroviere.addTrain(train);
+		return train;
+
+	}
+
+	private Train  nouveauTrainEnGare() {
+		// TODO Auto-generated method stub
+		Train train = creerTrainGeneral(Train.getEtatEnGare());
+		train.surLeQuai();
+		return null;
+	}
+
+	private Train creerTrainGeneral(int etat) {
+		// TODO Auto-generated method stub
+		String nomTrain = "LE TGV numéro  " + trains.size() + " a été créé " ;
+		System.out.println("nom du train: " + nomTrain);
+		Train train = new Train(nomTrain, Train.getId(), etat);
+		return train;
+
 	}
 
 	public int getStationID() {
@@ -96,7 +139,7 @@ public class Gare {
 	//
 	//	private Train creerTrainEnGare() {
 	//		// TODO Auto-generated method stub
-	//		String nom = "LE TGV " + idtrain + " a �t� cr�� " ;
+	//		String nom = "LE TGV " + idtrain + " a été créé " ;
 	//		Train train = new Train(nomTrain, idtrain , capacite)
 	//		return train;
 	//	}
