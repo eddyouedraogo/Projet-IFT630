@@ -15,7 +15,7 @@ public class Main {
 		 * 2- instanciation GARE
 		 */
 		System.out.println("test compilation");
-
+		/*
 		try
 		{
 			Gare.getInstance().initGare();
@@ -24,8 +24,15 @@ public class Main {
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} */
 
+		TrainFrame.getInstance().setVisible(true);
+		try {
+			Gare.getInstance().initGare();
+		}
+		catch(InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -21,8 +21,8 @@ import java.awt.event.ActionEvent;
 public class TrainFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;    
-    final static String trainInStat1 = "/res/TrainInStat1.png";
-    final static String trainInStat2 = "/res/TrainInStat2.png";
+    final static String trainInStat1 = "/resources/TrainInStat1.png";
+    final static String trainInStat2 = "/resources/TrainInStat2.png";
     final static String rails = "/resources/Rails.png";    
     JPanel panel;  
 
@@ -55,7 +55,7 @@ public class TrainFrame extends JFrame{
         
 
         
-        JButton btnAjouterStation = new JButton("+ Avion en Stationnement");
+        JButton btnAjouterStation = new JButton("Entree en gare ");
         btnAjouterStation.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -65,7 +65,7 @@ public class TrainFrame extends JFrame{
         btnAjouterStation.setBounds(40, 460, 150, 23);
         panel.add(btnAjouterStation);
         
-        JButton btnAvionVols = new JButton("+ Avion en vols");
+        JButton btnAvionVols = new JButton("Depart");
         btnAvionVols.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -76,7 +76,7 @@ public class TrainFrame extends JFrame{
         panel.add(btnAvionVols);        
         
         
-        JButton btnNewButton = new JButton("Décollage");
+        JButton btnNewButton = new JButton("Entree passager");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             }
@@ -92,7 +92,7 @@ public class TrainFrame extends JFrame{
         panel.add(btnNewButton);
         
         
-        JButton btnAvionAtterir = new JButton("Atterrissage");
+        JButton btnAvionAtterir = new JButton("Descente passager");
         btnAvionAtterir.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -107,7 +107,7 @@ public class TrainFrame extends JFrame{
 
     
     
-    public JLabel createAvionLable(String name)
+    public JLabel trains(String name)
     {       
         JLabel lblNewLabel = new JLabel(name);
         lblNewLabel.setIcon(new ImageIcon(TrainFrame.class.getResource(trainInStat1)));
@@ -122,7 +122,7 @@ public class TrainFrame extends JFrame{
     }
     
     
-    public void deleteLable(JLabel label)
+    public void delete(JLabel label)
     {       
         panel.remove(label);
         panel.revalidate();    
@@ -130,7 +130,7 @@ public class TrainFrame extends JFrame{
     }
     
 
-    public JLabel createPisteLable(String name, Point p)
+    public JLabel trainRails(String name, Point p)
     {       
         JLabel lblNewLabel = new JLabel(name);
      
