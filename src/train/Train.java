@@ -377,4 +377,8 @@ public class Train {
 		thread.start();
 
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ac1150ed6a3bf976b41fc0b419de97f8157c98e9
