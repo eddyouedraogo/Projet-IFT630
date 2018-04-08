@@ -377,7 +377,5 @@ public class Train {
 		thread.start();
 
 	}
-
 }
-
 
