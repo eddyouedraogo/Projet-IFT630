@@ -14,7 +14,6 @@ public class Train {
 	 * 
 	 * 
 	 */
-	
     private static final int ETAT_EN_GARE = 1;
     static final int ETAT_EN_MARCHE = 2;
     static final int ETAT_SORTIE_DE_GARE = 3;
@@ -22,8 +21,6 @@ public class Train {
     static final int ETAT_ENTREE_EN_PANNE = 5;
     static final int ETAT_ENTREE_EN_GREVE = 6;
     public static final int CAP = 25;
-  
-	
 	/**
 	 * Creer train
 	 * Avec un chauffeur, une capacite et une liste de passagers
