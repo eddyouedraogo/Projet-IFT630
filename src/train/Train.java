@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.concurrent.*;
 import client.Chauffeur;
 import client.Voyageur;
+import trainstation.Gare;
 
 public class Train {
 
 
 	/**
+	 * Veuillez créer vos fonctions/ modifications  en bas du fichier svp
 	 * Donner des ï¿½tats aux trains afin de mieux gerer l'exclusion mutuelle
-	 * 
-	 * 
 	 */
 
 	private static final int ETAT_EN_GARE = 1;
@@ -21,16 +21,13 @@ public class Train {
 	static final int ETAT_ENTREE_EN_GARE = 4;
 	static final int ETAT_ENTREE_EN_PANNE = 5;
 	static final int ETAT_ENTREE_EN_GREVE = 6;
-	public static final int CAP = 25;
-
-	int etat;
-
-
+	
 	/**
 	 * Creer train
 	 * Avec un chauffeur, une capacite et une liste de passagers
+	 *  & **NOUVEAU** un etat
 	 */
-
+	Gare gareDeTrain;
 	private int type;
 	private String Destination;
 	private Chauffeur chauffeur;
@@ -38,6 +35,10 @@ public class Train {
 	private static String nomTrain;
 	private static int id;
 	static final int capacite = 25;
+	//etat du train
+	int etat;
+		
+		
 	//Passager dans le train
 	Voyageur[] passagers = new Voyageur[capacite];
 	//Ajout de quais pour pouvoir positionner des passager
@@ -89,12 +90,18 @@ public class Train {
 	public Train(String  nomTrain, int id, int etat) {
 		this.nomTrain = nomTrain;
 		this.id = id;
-		this.etat = etat;
-		for(int i=0; i<capacite; i++) {
-			semaphoreTrain[i] = new Semaphore(1);
-		}
-
+		setState(etat);
+//		EDDY QST
+//		for(int i=0; i<capacite; i++) {
+//			semaphoreTrain[i] = new Semaphore(1);
+//		}
 	}
+	
+	 @Override
+	    public void finalize() {
+//	        frame de la gare .getInstance().deleteLable(label);
+	    }   
+	
 	/**
 	 * fonction qui fait entree un passager dans le train 
 	 * On utilise accesTrain pour faire savoir le nombre de personne 
@@ -253,21 +260,42 @@ public class Train {
 		{
 		case ETAT_EN_GARE:  break;
 		case ETAT_EN_MARCHE:  
-//			try
-//			{
-				//rotation signifie que le train est en marche sur des rail a lexterieur de la gare 
-				rotationTrain();
-//			}
-//			catch (InterruptedException e)
-//			{
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} 
+			//rotation signifie que le train est en marche sur des rail a lexterieur de la gare 
+			rotationTrain();
 			break;
 		case ETAT_SORTIE_DE_GARE:  break;
 		case ETAT_ENTREE_EN_GARE:  break;                
 		}        
-	}    
+	}  
+	private void entreeEnGareTrain() {
+		// TODO Auto-generated method stub
+		/**
+		 * quand le train sarrete sur le quai final
+		 */
+		Train locomotiveX = this;
+		Thread thread = new Thread()
+		{
+			public void run()
+			{                   
+				try {
+					gareDeTrain.aiguilleur.demandeEntreeSurQuai(locomotiveX);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				};
+				
+				//ajout partie EDDY
+
+				while (true)
+				{
+
+//						EDDY
+				}
+			}                       
+		};
+		thread.start();
+
+	}
 	private void rotationTrain() {
 		// TODO Auto-generated method stub
 		/**
@@ -277,26 +305,26 @@ public class Train {
 		{
 			public void run()
 			{                   
-//				setImage(ETAT_EN_MARCHE);                
-//				Rectangle r = Aeroframe.getInstance().getBounds();               
-//				Point pd = makePoint(0,0);
-//				Point pf = makePoint(0,0);
-//				Point p=pd;                
+				//				setImage(ETAT_EN_MARCHE);                
+				//				Rectangle r = Aeroframe.getInstance().getBounds();               
+				//				Point pd = makePoint(0,0);
+				//				Point pf = makePoint(0,0);
+				//				Point p=pd;                
 
 				while (true)
 				{
 					if (etat != ETAT_EN_MARCHE) break;
 
-//					if ((p.x == pf.x)&&(p.y == pf.y)){  
-//						pd = makePoint(getRandom(0, r.width), r.height);
-//						pf = makePoint(r.width, r.height-(r.width-pd.x));
-//						p=pd;
-//					}                      
-//
-//					p = getNextPoint(p, pf);
+					//					if ((p.x == pf.x)&&(p.y == pf.y)){  
+					//						pd = makePoint(getRandom(0, r.width), r.height);
+					//						pf = makePoint(r.width, r.height-(r.width-pd.x));
+					//						p=pd;
+					//					}                      
+					//
+					//					p = getNextPoint(p, pf);
 
 					try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
-//					setPosition(p);
+					//					setPosition(p);
 				}
 			}                       
 		};

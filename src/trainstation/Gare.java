@@ -23,9 +23,9 @@ public class Gare {
 	}
 
 	private ArrayList<Train> trains = new ArrayList<Train>();
-	private Quais aiguilleur;
-	private Voies voies;
-	private ReseauFerroviere reseauFerroviere;
+	public Quais aiguilleur;
+	Voies voies;
+	ReseauFerroviere reseauFerroviere;
 
 	private Gare()
 	{
@@ -56,7 +56,7 @@ public class Gare {
         for (int i=0; i < trains.size()-1; i++ )
             if (trainRecu.equals(trains.get(i)))
             {
-//            	trains.get(i)  delete de laffichage EDDY
+            	trains.get(i).finalize(); //  delete de laffichage EDDY
             	trains.remove(i);                
             } 
     }    
