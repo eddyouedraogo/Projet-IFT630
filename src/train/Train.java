@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.concurrent.*;
 import client.Chauffeur;
 import client.Voyageur;
+import main.TrainFrame;
 import trainstation.Gare;
+import java.awt.Point;
+import javax.swing.*;
 
 public class Train {
 
@@ -53,6 +56,7 @@ public class Train {
 	private static Semaphore accessTrain = new Semaphore(capacite);
 	private static Semaphore semaphoreChauffeur = new Semaphore(1);
 
+	JLabel label;
 
 	/**
 	 * Gestion des passagers dans le trains
@@ -91,6 +95,7 @@ public class Train {
 		this.nomTrain = nomTrain;
 		this.id = id;
 		setState(etat);
+		label = TrainFrame.getInstance().trains(nomTrain);
 //		EDDY QST
 //		for(int i=0; i<capacite; i++) {
 //			semaphoreTrain[i] = new Semaphore(1);
@@ -99,7 +104,7 @@ public class Train {
 	
 	 @Override
 	    public void finalize() {
-//	        frame de la gare .getInstance().deleteLable(label);
+		 	TrainFrame.getInstance().delete(label);
 	    }   
 	
 	/**
@@ -331,7 +336,7 @@ public class Train {
 				};
 				
 				//ajout partie EDDY
-
+				
 				while (true)
 				{
 
@@ -376,6 +381,39 @@ public class Train {
 		};
 		thread.start();
 
+	}
+	
+	
+	private Point getPosition(){
+		Point p = new Point();
+		p = label.getBounds().getLocation();
+		return p;
+	}
+	
+	private Point getNextPoint(Point p, Point pf)
+	    {
+	        if (p.x < pf.x) p.x++;
+	        if (p.x > pf.x) p.x--;
+	        if (p.y < pf.y) p.y++;
+	        if (p.y > pf.y) p.y--;
+	        return p;
+	    }  
+	
+	private void setImage(int state) {
+		String imageTrain = "/resources/TrainInStat1.png";
+		String imageTrain2 = "/resources/TrainInStat2.png";
+		String imageTrainInside = "/resources/TrainInside.png";
+		switch(state) {
+		case ETAT_EN_GARE:
+			imageTrain = imageTrainInside;
+			TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
+			break;
+		case ETAT_EN_MARCHE:
+			imageTrain = imageTrain2;
+			TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
+			break;
+		}
+		label.setIcon(new ImageIcon(TrainFrame.class.getResource(imageTrain)));
 	}
 }
 

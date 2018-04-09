@@ -2,6 +2,9 @@ package trainstation;
 
 import java.util.ArrayList;
 import java.util.concurrent.*;
+
+import client.Voyageur;
+
 import java.util.List;
 import train.*;
 
@@ -11,6 +14,7 @@ public class Gare {
 	private int stationID;
 	private int capacite;
 	private String stationName;
+	private int id;
 
 	//utilisation d'un singleton
 	private static Gare instance=null ;    
@@ -22,6 +26,7 @@ public class Gare {
 		return instance;
 	}
 
+	private ArrayList<Voyageur> passagers = new ArrayList<Voyageur>();
 	private ArrayList<Train> trains = new ArrayList<Train>();
 	public Quais aiguilleur;
 	Voies voies;
@@ -49,6 +54,9 @@ public class Gare {
 		for(int j=0 ; j<5;j++)
 			System.out.println("init des trains en rotation");
 			nouveauTrainEnRotation();
+		for(int i=0; i<10; i++) {
+			nouveauPassager();
+		}
 	}
 
     public void retirerAvion(Train trainRecu)
@@ -61,7 +69,7 @@ public class Gare {
             } 
     }    
     
-	private Train nouveauTrainEnRotation() {
+    public Train nouveauTrainEnRotation() {
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnRotation());
 		reseauFerroviere.addTrain(train);
@@ -69,14 +77,14 @@ public class Gare {
 
 	}
 
-	private Train  nouveauTrainEnGare() {
+    public Train  nouveauTrainEnGare() {
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnGare());
 		train.surLeQuai();
 		return null;
 	}
 
-	private Train creerTrainGeneral(int etat) {
+    public Train creerTrainGeneral(int etat) {
 		// TODO Auto-generated method stub
 		String nomTrain = "LE TGV numéro  " + trains.size() + " a été créé " ;
 		System.out.println("nom du train: " + nomTrain);
@@ -125,9 +133,20 @@ public class Gare {
 		this.capacite = capacite;
 	}
 
+	public void nouveauPassager() {
+		Voyageur passager = new Voyageur(id);
+		passagers.add(passager);
+		id++;
+	}
+	
+	public void entreePassager() {
+		if(!passagers.isEmpty()) {
+			passagers.remove(0);
+		}
+	}
+	
 	//rajouter un chauffeur <
 	//	initialiser liste de chauffeur 
-
 	//	public Train TrainEnGare() throws InterruptedException
 	//    {   
 	//        condition avant de creer le train

@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import trainstation.Gare;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -24,7 +26,7 @@ public class TrainFrame extends JFrame{
     final static String trainInStat1 = "/resources/TrainInStat1.png";
     final static String trainInStat2 = "/resources/TrainInStat2.png";
     final static String rails = "/resources/Rails.png";    
-    JPanel panel;  
+    public JPanel panel;  
 
     private static TrainFrame instance=null ; 
     public static TrainFrame getInstance()
@@ -55,54 +57,61 @@ public class TrainFrame extends JFrame{
         
 
         
-        JButton btnAjouterStation = new JButton("Entree en gare ");
-        btnAjouterStation.addMouseListener(new MouseAdapter() {
+        JButton btnEntreeEnGare = new JButton("Entree en gare ");
+        btnEntreeEnGare.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-              
+              Gare.getInstance().nouveauTrainEnGare();
             }
         });
-        btnAjouterStation.setBounds(40, 460, 150, 23);
-        panel.add(btnAjouterStation);
+        btnEntreeEnGare.setBounds(40, 460, 150, 23);
+        panel.add(btnEntreeEnGare);
         
-        JButton btnAvionVols = new JButton("Depart");
-        btnAvionVols.addMouseListener(new MouseAdapter() {
+        JButton btnDepart = new JButton("Depart");
+        btnDepart.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               
+               Gare.getInstance().nouveauTrainEnRotation();
             }
         });
-        btnAvionVols.setBounds(40, 490, 150, 23);
-        panel.add(btnAvionVols);        
+        btnDepart.setBounds(40, 490, 150, 23);
+        panel.add(btnDepart);        
         
         
-        JButton btnNewButton = new JButton("Entree passager");
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton btnEntreePassager = new JButton("Entree passager");
+        btnEntreePassager.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             }
         });
-  
-        btnNewButton.addMouseListener(new MouseAdapter() {
+        btnEntreePassager.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
-              
+              Gare.getInstance().nouveauPassager();
             }
         });
-        btnNewButton.setBounds(40, 520, 150, 23);
-        panel.add(btnNewButton);
+        btnEntreePassager.setBounds(40, 520, 150, 23);
+        panel.add(btnEntreePassager);
         
         
-        JButton btnAvionAtterir = new JButton("Descente passager");
-        btnAvionAtterir.addMouseListener(new MouseAdapter() {
+        JButton btnDescentePassager = new JButton("Descente passager");
+        btnDescentePassager.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-            
+            	Gare.getInstance().entreePassager();
             }
         });
-        btnAvionAtterir.setBounds(40, 550, 150, 23);
-        panel.add(btnAvionAtterir);
+        btnDescentePassager.setBounds(40, 550, 150, 23);
+        panel.add(btnDescentePassager);
         
-
+        JButton btnSortirTrainGare = new JButton("Sortie de gare");
+        btnSortirTrainGare.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		//Aziz
+        	}
+        });
+        btnSortirTrainGare.setBounds(40, 580, 150, 23);
+        panel.add(btnSortirTrainGare);
     }        
 
     
@@ -144,7 +153,7 @@ public class TrainFrame extends JFrame{
         return lblNewLabel;     
     }    
     
-    public JLabel createStationnementLable(String name, Point p)
+    public JLabel createStationnementLabel(String name, Point p)
     {       
         JLabel lblNewLabel = new JLabel(name);
         lblNewLabel.setBackground(Color.yellow);
