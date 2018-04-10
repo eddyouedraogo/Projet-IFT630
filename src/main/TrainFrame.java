@@ -101,7 +101,7 @@ public class TrainFrame extends JFrame{
         panel.add(btnSortirTrainGare);
         
         JButton btnEntreeTrainGare = new JButton("Entree Gare");
-        btnSortirTrainGare.addMouseListener(new MouseAdapter() {
+        btnEntreeTrainGare.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         		try {
