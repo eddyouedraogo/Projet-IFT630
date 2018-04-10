@@ -29,7 +29,6 @@ public class TrainFrame extends JFrame{
     final static String trainInStat2 = "/resources/TrainInStat2.png";
     final static String rails = "/resources/Rails.png";    
     public JPanel panel; 
-    JTextArea textArea ;
 
     private static TrainFrame instance=null ; 
     public static TrainFrame getInstance()
@@ -51,9 +50,8 @@ public class TrainFrame extends JFrame{
         
         revalidate();
         panel = new JPanel();
-        textArea = new JTextArea();
         panel.setBackground(Color.WHITE);
-        panel.setBounds(0,0,getBounds().width, getBounds().height);        
+        panel.setBounds(6,6,getBounds().width, getBounds().height);        
         
         
         getContentPane().add(panel);
@@ -112,10 +110,32 @@ public class TrainFrame extends JFrame{
         btnEntreeTrainGare.setBounds(637, 18, 180, 23);
         panel.add(btnEntreeTrainGare);
         
-        textArea.setBackground(new Color(255, 250, 250));
-        textArea.setBounds(6, 61, 1175, 701);
-        textArea.setEditable(false);
-        panel.add(textArea);
+        JLabel lblQuais = new JLabel("Quais");
+        lblQuais.setBounds(169, 100, 61, 16);
+        panel.add(lblQuais);
+        
+        JTextPane txtpnQuaistextpanel = new JTextPane();
+        txtpnQuaistextpanel.setBackground(new Color(255, 250, 240));
+        txtpnQuaistextpanel.setBounds(40, 128, 331, 378);
+        panel.add(txtpnQuaistextpanel);
+        
+        JLabel lblVoies = new JLabel("Voies");
+        lblVoies.setBounds(566, 100, 61, 16);
+        panel.add(lblVoies);
+        
+        JTextPane textPane = new JTextPane();
+        textPane.setBackground(new Color(255, 250, 240));
+        textPane.setBounds(394, 128, 375, 378);
+        panel.add(textPane);
+        
+        JLabel lblRotation = new JLabel("Rotation");
+        lblRotation.setBounds(962, 100, 61, 16);
+        panel.add(lblRotation);
+        
+        JTextPane textPane_1 = new JTextPane();
+        textPane_1.setBackground(new Color(255, 250, 240));
+        textPane_1.setBounds(796, 128, 383, 378);
+        panel.add(textPane_1);
     }        
 
     
