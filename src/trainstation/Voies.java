@@ -8,7 +8,7 @@ import train.*;
 public class Voies {
 
 	/**
-	 * GESTION DE L'ENTRÉE EN GARE DES TRAINS  "sur les voies "
+	 * GESTION DE L'ENTRï¿½E EN GARE DES TRAINS  "sur les voies "
 	 * instancier les trains 
 	 * gestion des semaphores
 	 * exclusion mutuelles sur les regions critiques
@@ -32,8 +32,36 @@ public class Voies {
 			semaphoreVoie[i] = new Semaphore(1);
 		}
 
-	}	
+	}
+	
+	public int occuperVoies(Train train) throws InterruptedException{
+		entreSurVoies.acquire();
+		mutexVoies.acquire();
+		int voiesId = getVoiesLibre();
+		locomotive[voiesId] = train;
+		mutexVoies.release();
+		semaphoreVoie[voiesId].acquire();
+		return voiesId;
+	}
 
-
+	private int getVoiesLibre() 
+    {
+        for (int i = 0; i < NOMBRE_DE_VOIES; i++)
+            if (locomotive[i] == null)
+                return i;              
+        return 0;
+    }
+	
+	
+	public void libereVoies(Train train) throws InterruptedException{
+		for(int i=0; i<NOMBRE_DE_VOIES; i++ ) {
+			if(train.equals(locomotive[i])) {
+				locomotive[i] = null;
+				entreSurVoies.release();
+				semaphoreVoie[i].acquire();
+				break;
+			}
+		}
+	}
 
 }

@@ -2,12 +2,15 @@ package train;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.*;
 import client.Chauffeur;
 import client.Voyageur;
 import main.TrainFrame;
 import trainstation.Gare;
 import java.awt.Point;
+import java.awt.Rectangle;
+
 import javax.swing.*;
 
 public class Train {
@@ -57,6 +60,7 @@ public class Train {
 	private static Semaphore semaphoreChauffeur = new Semaphore(1);
 
 	JLabel label;
+	JTextArea textArea;
 
 	/**
 	 * Gestion des passagers dans le trains
@@ -95,7 +99,8 @@ public class Train {
 		this.nomTrain = nomTrain;
 		this.id = id;
 		setState(etat);
-		label = TrainFrame.getInstance().trains(nomTrain);
+		gareDeTrain = Gare.getInstance();
+		//label = TrainFrame.getInstance().trains(nomTrain);
 //		EDDY QST
 //		for(int i=0; i<capacite; i++) {
 //			semaphoreTrain[i] = new Semaphore(1);
@@ -311,11 +316,84 @@ public class Train {
 	 */
 	private void sortieDeGareTrain() {
 		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		Train thisTrain = this;
+		Thread thread = new Thread()
+		{
+			public void run()
+			{                   
+				//setImage(ETAT_EN_MARCHE);                
+				//Rectangle r = TrainFrame.getInstance().getBounds();               
+				//Point pd = makePoint(0,0);
+				//Point pf = makePoint(0,0);
+				//Point p=pd;                
+				int QuaisId = 0;
+				
+				try {
+					QuaisId = gareDeTrain.voies.occuperVoies(thisTrain);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				//while (true)
+				//{
+					//if (etat != ETAT_EN_MARCHE) break;
+
+					//if ((p.x == pf.x)&&(p.y == pf.y)){  
+					///pd = makePoint(getRandom(0, r.width), r.height);
+					//pf = makePoint(r.width, r.height-(r.width-pd.x));
+					//p=pd;
+					//}               
+					//p = getNextPoint(p, pf);
+
+					//try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+					//setPosition(p);
+				//}
+				try {
+					gareDeTrain.voies.libereVoies(thisTrain);
+					gareDeTrain.retirerTrain(thisTrain);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}                       
+		};
+		thread.start();
 		
 	}
+	
 	private void entreeEnGareDuTrain() {
-		// TODO Auto-generated method stub
-		
+		Train thisTrain = this;
+		Thread thread = new Thread() {
+			public void run() {
+				int voiesId = 0;
+				try {
+					voiesId = gareDeTrain.voies.occuperVoies(thisTrain);
+				}catch (InterruptedException e){
+					e.printStackTrace();
+				}
+				
+				//try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+				
+				try {
+					gareDeTrain.aiguilleur.demandeEntreeSurQuai(thisTrain);
+				}catch(InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				//try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+				
+				try {
+					gareDeTrain.voies.libereVoies(thisTrain);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		thread.start();
 	}
 
 	private void trainSurQuai() {
@@ -324,6 +402,7 @@ public class Train {
 		 * quand le train sarrete sur le quai final
 		 */
 		Train locomotiveX = this;
+		
 		Thread thread = new Thread()
 		{
 			public void run()
@@ -335,13 +414,18 @@ public class Train {
 					e1.printStackTrace();
 				};
 				
-				//ajout partie EDDY
+				//Point posTrain = getPosition();
+				//Point posInQuais = gareDeTrain.aiguilleur.getTrainPoint(locomotiveX);
 				
-				while (true)
-				{
+				//while (true)
+				//{
 
-//						EDDY
-				}
+					//if ((posTrain.x == posInQuais.x)&&(posTrain.y == posInQuais.y)) break;                    
+					//posTrain = getNextPoint(posTrain, posInQuais);
+                    //try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+                    //setPosition(posTrain);
+				//}
+				//setImage(ETAT_EN_GARE);
 			}                       
 		};
 		thread.start();
@@ -352,35 +436,16 @@ public class Train {
 		/**
 		 * 
 		 */
+		
 		Thread thread = new Thread()
 		{
 			public void run()
 			{                   
-				//				setImage(ETAT_EN_MARCHE);                
-				//				Rectangle r = Aeroframe.getInstance().getBounds();               
-				//				Point pd = makePoint(0,0);
-				//				Point pf = makePoint(0,0);
-				//				Point p=pd;                
-
-				while (true)
-				{
-					if (etat != ETAT_EN_MARCHE) break;
-
-					//					if ((p.x == pf.x)&&(p.y == pf.y)){  
-					//						pd = makePoint(getRandom(0, r.width), r.height);
-					//						pf = makePoint(r.width, r.height-(r.width-pd.x));
-					//						p=pd;
-					//					}                      
-					//
-					//					p = getNextPoint(p, pf);
-
-					try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
-					//					setPosition(p);
-				}
+				
+                    //try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
 			}                       
 		};
 		thread.start();
-
 	}
 	
 	
@@ -401,19 +466,37 @@ public class Train {
 	
 	private void setImage(int state) {
 		String imageTrain = "/resources/TrainInStat1.png";
-		String imageTrain2 = "/resources/TrainInStat2.png";
-		String imageTrainInside = "/resources/TrainInside.png";
 		switch(state) {
-		case ETAT_EN_GARE:
-			imageTrain = imageTrainInside;
-			TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
-			break;
-		case ETAT_EN_MARCHE:
-			imageTrain = imageTrain2;
-			TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
-			break;
+			case ETAT_EN_GARE:
+				imageTrain = "/resources/TrainInStat1.png";
+				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
+				break;
+			case ETAT_EN_MARCHE:
+				imageTrain = "/resources/TrainInStat2.png";
+				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
+				break;
 		}
 		label.setIcon(new ImageIcon(TrainFrame.class.getResource(imageTrain)));
 	}
+	
+    private void setPosition(Point p)
+    {
+        label.setBounds(p.x, p.y, (int) label.getBounds().getWidth(), (int) label.getBounds().getHeight());
+    }
+    
+    
+    private Point makePoint(int x, int y)
+    {
+        Point p = new Point();
+        p.x = x;
+        p.y = y;
+        return p;
+    } 
+    
+    private int getRandom(int min, int max)
+    {
+      Random r = new Random();
+      return  min + r.nextInt(max-min);
+    }  
 }
 

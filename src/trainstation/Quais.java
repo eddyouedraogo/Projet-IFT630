@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.concurrent.*;
 
 import client.Voyageur;
+import main.TrainFrame;
 
 import java.util.List;
 import train.*;
 
+import java.awt.*;
 public class Quais {
 	/**
 	 * GESTION DE L'ENTR�E EN GARE DES TRAINS  "sur les QUAIS"
@@ -248,5 +250,27 @@ public class Quais {
 				return k;
 		}
 		return 0;
+	}
+	
+	private Point pointQuais(int QuaisId) {
+		Point point = new Point();
+		Rectangle rectangle = TrainFrame.getInstance().getBounds();
+		point.x = 40 + QuaisId*160;
+		point.y = rectangle.height-200;
+		return point;
+	}
+	
+	public Point getTrainPoint(Train t) {
+		int trainId = rechercheQuaiAliberer(t);
+		return pointQuais(trainId);
+	}
+	
+	public Train getTrainOnQuais() {
+		for(int i=0; i< NOMBRE_DE_QUAIS; i++) {
+			if(locomotive[i]!=null) {
+				return locomotive[i];
+			}
+		}
+		return null;
 	}
 }

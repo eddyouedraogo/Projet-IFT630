@@ -15,6 +15,9 @@ public class Gare {
 	private int capacite;
 	private String stationName;
 	private int id;
+	public Quais aiguilleur;
+	public Voies voies;
+	public ReseauFerroviere reseauFerroviere;
 
 	//utilisation d'un singleton
 	private static Gare instance=null ;    
@@ -28,9 +31,7 @@ public class Gare {
 
 	private ArrayList<Voyageur> passagers = new ArrayList<Voyageur>();
 	private ArrayList<Train> trains = new ArrayList<Train>();
-	public Quais aiguilleur;
-	Voies voies;
-	ReseauFerroviere reseauFerroviere;
+
 
 	private Gare()
 	{
@@ -59,7 +60,7 @@ public class Gare {
 		}
 	}
 
-    public void retirerAvion(Train trainRecu)
+    public void retirerTrain(Train trainRecu)
     {
         for (int i=0; i < trains.size()-1; i++ )
             if (trainRecu.equals(trains.get(i)))
@@ -89,6 +90,7 @@ public class Gare {
 		String nomTrain = "LE TGV numéro  " + trains.size() + " a été créé " ;
 		System.out.println("nom du train: " + nomTrain);
 		Train train = new Train(nomTrain, Train.getId(), etat);
+		trains.add(train);
 		return train;
 
 	}
@@ -142,6 +144,23 @@ public class Gare {
 	public void entreePassager() {
 		if(!passagers.isEmpty()) {
 			passagers.remove(0);
+		}
+	}
+	
+	public void quitterGare() throws InterruptedException{
+		Train train = aiguilleur.getTrainOnQuais();
+		if(train!=null) {
+			aiguilleur.quitterQuais(train);
+			train.sortiedeGare();
+		}
+	}
+	
+	public void entreeGare() throws InterruptedException{
+		Train train = aiguilleur.getTrainOnQuais();
+		if(train!=null) {
+			reseauFerroviere.removeTrain(train);
+			//aiguilleur.quitterQuais(train);
+			train.entreeEnGare();
 		}
 	}
 	

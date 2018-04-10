@@ -18,6 +18,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 
 public class TrainFrame extends JFrame{
@@ -26,7 +28,8 @@ public class TrainFrame extends JFrame{
     final static String trainInStat1 = "/resources/TrainInStat1.png";
     final static String trainInStat2 = "/resources/TrainInStat2.png";
     final static String rails = "/resources/Rails.png";    
-    public JPanel panel;  
+    public JPanel panel; 
+    JTextArea textArea ;
 
     private static TrainFrame instance=null ; 
     public static TrainFrame getInstance()
@@ -48,6 +51,7 @@ public class TrainFrame extends JFrame{
         
         revalidate();
         panel = new JPanel();
+        textArea = new JTextArea();
         panel.setBackground(Color.WHITE);
         panel.setBounds(0,0,getBounds().width, getBounds().height);        
         
@@ -55,16 +59,15 @@ public class TrainFrame extends JFrame{
         getContentPane().add(panel);
         panel.setLayout(null);       
         
-
         
-        JButton btnEntreeEnGare = new JButton("Entree en gare ");
+        JButton btnEntreeEnGare = new JButton("Nouveau Train en Gare");
         btnEntreeEnGare.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
               Gare.getInstance().nouveauTrainEnGare();
             }
         });
-        btnEntreeEnGare.setBounds(40, 460, 150, 23);
+        btnEntreeEnGare.setBounds(40, 18, 150, 23);
         panel.add(btnEntreeEnGare);
         
         JButton btnDepart = new JButton("Depart");
@@ -74,44 +77,45 @@ public class TrainFrame extends JFrame{
                Gare.getInstance().nouveauTrainEnRotation();
             }
         });
-        btnDepart.setBounds(40, 490, 150, 23);
+        btnDepart.setBounds(221, 18, 150, 23);
         panel.add(btnDepart);        
-        
-        
-        JButton btnEntreePassager = new JButton("Entree passager");
-        btnEntreePassager.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            }
-        });
-        btnEntreePassager.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent arg0) {
-              Gare.getInstance().nouveauPassager();
-            }
-        });
-        btnEntreePassager.setBounds(40, 520, 150, 23);
-        panel.add(btnEntreePassager);
-        
-        
-        JButton btnDescentePassager = new JButton("Descente passager");
-        btnDescentePassager.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            	Gare.getInstance().entreePassager();
-            }
-        });
-        btnDescentePassager.setBounds(40, 550, 150, 23);
-        panel.add(btnDescentePassager);
-        
-        JButton btnSortirTrainGare = new JButton("Sortie de gare");
+
+        JButton btnSortirTrainGare = new JButton("Quitter Gare");
         btnSortirTrainGare.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		//Aziz
+        		try {
+					Gare.getInstance().quitterGare();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         	}
         });
-        btnSortirTrainGare.setBounds(40, 580, 150, 23);
+        
+        btnSortirTrainGare.setBounds(429, 18, 150, 23);
         panel.add(btnSortirTrainGare);
+        
+        JButton btnEntreeTrainGare = new JButton("Entree Gare");
+        btnSortirTrainGare.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		try {
+					Gare.getInstance().entreeGare();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        
+        btnEntreeTrainGare.setBounds(637, 18, 180, 23);
+        panel.add(btnEntreeTrainGare);
+        
+        textArea.setBackground(new Color(255, 250, 250));
+        textArea.setBounds(6, 61, 1175, 701);
+        textArea.setEditable(false);
+        panel.add(textArea);
     }        
 
     
