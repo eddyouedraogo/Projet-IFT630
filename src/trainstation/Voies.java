@@ -24,9 +24,9 @@ public class Voies {
 
 	public Voies ()
 	{
-		for(int i=0; i<NOMBRE_DE_VOIES; i++) {
-			locomotive[i] =null;
-		}
+		//for(int i=0; i<NOMBRE_DE_VOIES; i++) {
+		//	locomotive[i] =null;
+		//}
 
 		for(int i=0; i<NOMBRE_DE_VOIES; i++) {
 			semaphoreVoie[i] = new Semaphore(1);
@@ -58,7 +58,7 @@ public class Voies {
 			if(train.equals(locomotive[i])) {
 				locomotive[i] = null;
 				entreSurVoies.release();
-				semaphoreVoie[i].acquire();
+				semaphoreVoie[i].release();
 				break;
 			}
 		}

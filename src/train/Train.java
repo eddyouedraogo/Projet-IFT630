@@ -289,7 +289,7 @@ public class Train {
 	public void trainEnRotationEnMarche() {
 		// TODO Auto-generated method stub
 		etat = ETAT_EN_MARCHE;
-		rotationTrain(); //TODO
+		rotationTrain(); //ok
 	}
 	public void surLeQuai() {
 		// TODO Auto-generated method stub
@@ -303,10 +303,10 @@ public class Train {
 	}
 
 
-	public void sortiedeGare() {
+	public void sortiedeGare() throws InterruptedException {
 		// TODO Auto-generated method stub
 		etat = ETAT_SORTIE_DE_GARE;
-		sortieDeGareTrain(); //TODO
+		sortieDeGareTrain(); //ok
 	}
 	
 
@@ -314,7 +314,7 @@ public class Train {
 	 * Les actions relatives aux etats et changement detat sont a ecrire ci apres
 	 * 
 	 */
-	private void sortieDeGareTrain() {
+	private void sortieDeGareTrain() throws InterruptedException{
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		Train thisTrain = this;
@@ -328,9 +328,17 @@ public class Train {
 				//Point pf = makePoint(0,0);
 				//Point p=pd;                
 				int QuaisId = 0;
-				
+			
 				try {
 					QuaisId = gareDeTrain.voies.occuperVoies(thisTrain);
+					TrainFrame.getInstance().voiesTextArea.append(nomTrain + "est sur la voie\n");
+					
+					Thread.sleep(1);
+					
+					gareDeTrain.voies.libereVoies(thisTrain);
+					gareDeTrain.retirerTrain(thisTrain);
+					TrainFrame.getInstance().voiesTextArea.append(nomTrain + "a liberer la voie et est sortie de la gare\n");
+					
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -347,17 +355,22 @@ public class Train {
 					//}               
 					//p = getNextPoint(p, pf);
 
-					//try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+					//try  {    }   catch (InterruptedException e)  {  }
 					//setPosition(p);
 				//}
-				try {
-					gareDeTrain.voies.libereVoies(thisTrain);
-					gareDeTrain.retirerTrain(thisTrain);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				
+				//while(true) {
+					//TrainFrame.getInstance().voiesTextArea.append("Le Train "+nomTrain + "quitte la gare");
+					//try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+				//}
+				
+				//try {
+				//	gareDeTrain.voies.libereVoies(thisTrain);
+				//	gareDeTrain.retirerTrain(thisTrain);
+				//} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+				//	e.printStackTrace();
+				//}
 			}                       
 		};
 		thread.start();
@@ -371,26 +384,39 @@ public class Train {
 				int voiesId = 0;
 				try {
 					voiesId = gareDeTrain.voies.occuperVoies(thisTrain);
+					TrainFrame.getInstance().voiesTextArea.append(nomTrain+ " Occupe la voie\n");
+					Thread.sleep(1); 
+					
+					gareDeTrain.aiguilleur.demandeEntreeSurQuai(thisTrain);
+					TrainFrame.getInstance().quaisTextArea.append(nomTrain+ " Accede au Quais\n");
+					Thread.sleep(1);
+					
+					gareDeTrain.voies.libereVoies(thisTrain);
+					TrainFrame.getInstance().voiesTextArea.append(nomTrain+ " a liberer la voie\n");
 				}catch (InterruptedException e){
 					e.printStackTrace();
 				}
 				
+				//TrainFrame.getInstance().voiesTextArea.append(nomTrain+ " Occupe la voie\n");
 				//try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
 				
-				try {
-					gareDeTrain.aiguilleur.demandeEntreeSurQuai(thisTrain);
-				}catch(InterruptedException e) {
-					e.printStackTrace();
-				}
+				//try {
+				//	gareDeTrain.aiguilleur.demandeEntreeSurQuai(thisTrain);
+				//}catch(InterruptedException e) {
+				//	e.printStackTrace();
+				//}
 				
+				//TrainFrame.getInstance().quaisTextArea.append(nomTrain+ " Accede au Quais\n");
 				//try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
 				
-				try {
-					gareDeTrain.voies.libereVoies(thisTrain);
-				} catch (InterruptedException e) {
+				//try {
+				//	gareDeTrain.voies.libereVoies(thisTrain);
+				//} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				//	e.printStackTrace();
+				//}
+				
+				//TrainFrame.getInstance().voiesTextArea.append(nomTrain+ " a liberer la voie\n");
 			}
 		};
 		thread.start();
@@ -409,6 +435,8 @@ public class Train {
 			{                   
 				try {
 					gareDeTrain.aiguilleur.demandeEntreeSurQuai(locomotiveX);
+					TrainFrame.getInstance().quaisTextArea.append(nomTrain + "est sur le quais\n");
+					Thread.sleep(1);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -418,8 +446,8 @@ public class Train {
 				//Point posInQuais = gareDeTrain.aiguilleur.getTrainPoint(locomotiveX);
 				
 				//while (true)
-				//{
-
+				///{
+					//TrainFrame.getInstance().quaisTextArea.append(nomTrain + "est sur le quais\n");
 					//if ((posTrain.x == posInQuais.x)&&(posTrain.y == posInQuais.y)) break;                    
 					//posTrain = getNextPoint(posTrain, posInQuais);
                     //try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
@@ -441,7 +469,11 @@ public class Train {
 		{
 			public void run()
 			{                   
-				
+				//while(true) {
+					//if(etat != ETAT_EN_MARCHE) break;
+					TrainFrame.getInstance().rotationTextArea.append(nomTrain+" est en Marche\n");
+					try  {  Thread.sleep(1);  }   catch (InterruptedException e)  {  }
+				//}
                     //try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
 			}                       
 		};

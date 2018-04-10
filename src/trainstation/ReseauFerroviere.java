@@ -72,7 +72,7 @@ public class ReseauFerroviere {
 
 	public Train getTrain() {
 		if(trains.size()>0)
-			return trains.get(0); // retourner lindex zero
+			return trains.get(0); // retourner l'index zero
 		else
 			return null;
 

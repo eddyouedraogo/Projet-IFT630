@@ -41,9 +41,9 @@ public class Quais {
 
 	public Quais ()
 	{
-//		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
-//			locomotive[i] =null;
-//		}
+		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
+			locomotive[i] =null;
+		}
 
 		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
 			semaphoreQuais[i] = new Semaphore(1);
@@ -61,7 +61,7 @@ public class Quais {
 	 * @param Train train
 	 * @throws InterruptedException
 	 */
-	public void demande_affectation_Quais (Train train) throws InterruptedException
+	/*public void demande_affectation_Quais (Train train) throws InterruptedException
 	{
 		entreeQuai.acquire();
 		//rechercher un quai de disponible et de libre en exclusion mutuelle 
@@ -70,6 +70,16 @@ public class Quais {
 		locomotive[numeroQuai] = train;
 		train.setSizeQuais(CAPACITE);
 		mutexQuais.release();
+	}
+	*/
+	public void demandeEntreeSurQuai(Train locomotiveRecue) throws InterruptedException {
+		// TODO Auto-generated method stub
+		entreeQuai.acquire();
+		mutexQuais.acquire();
+		int numeroQuai = getQuaiDispo();
+		locomotive[numeroQuai]= locomotiveRecue;
+		mutexQuais.release();
+		
 	}
 
 	private int rechercheQuaiDispo() {
@@ -136,7 +146,7 @@ public class Quais {
 	public int getQuais() {
 		for(int i=0; i<NOMBRE_DE_QUAIS;i++) {
 			//Chercher un quai sur le train il existe deja et le quai n'est pas plein
-			if(locomotive[i]!=null && locomotive[i].getSizeQuais()<CAPACITE) {
+			if(locomotive[i]!=null) {
 				//On retourne l'id du quai
 				return i;
 			}
@@ -229,15 +239,7 @@ public class Quais {
 		return CAPACITE;
 	}
 
-	public void demandeEntreeSurQuai(Train locomotiveRecue) throws InterruptedException {
-		// TODO Auto-generated method stub
-		entreeQuai.acquire();
-		mutexQuais.acquire();
-		int numeroQuai = getQuaiDispo();
-		locomotive[numeroQuai]= locomotiveRecue;
-		mutexQuais.release();
-		
-	}
+
 	/**
 	 * methode donant les quais ou le train pourra se mettre donc dispo
 	 * @return

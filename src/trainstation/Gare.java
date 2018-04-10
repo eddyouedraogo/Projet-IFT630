@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.*;
 
 import client.Voyageur;
+import main.TrainFrame;
 
 import java.util.List;
 import train.*;
@@ -48,13 +49,15 @@ public class Gare {
 		 * initilisaton de personnes sur les quais PARTIE EDDY
 		 */
 		//		intialisation de 5 trains en gare
+		TrainFrame.getInstance().quaisTextArea.append("INITIALISATION DE 5 TRAINS EN GARE\n");
 		for(int k=0 ; k<5;k++)
-			System.out.println("init des gares");
 			nouveauTrainEnGare();
 		//		intialisation de 15 trains en rotation
+
+		TrainFrame.getInstance().rotationTextArea.append("INITIALISATION DE 5 TRAINS EN ROTATION\n");
 		for(int j=0 ; j<5;j++)
-			System.out.println("init des trains en rotation");
 			nouveauTrainEnRotation();
+		
 		for(int i=0; i<10; i++) {
 			nouveauPassager();
 		}
@@ -65,15 +68,27 @@ public class Gare {
         for (int i=0; i < trains.size()-1; i++ )
             if (trainRecu.equals(trains.get(i)))
             {
-            	trains.get(i).finalize(); //  delete de laffichage EDDY
+            	//trains.get(i).finalize(); //  delete de laffichage EDDY
             	trains.remove(i);                
             } 
-    }    
+    }   
+    
+    public Train ajouterTrain(int etat) throws InterruptedException{
+    	String nomTrain = "TGV " + trains.size()+" ";
+		Train train = new Train(nomTrain, Train.getId(), etat);
+		if(etat == Train.getEtatEnGare()) {
+			aiguilleur.demandeEntreeSurQuai(train);
+		}
+		trains.add(train);
+		return train;
+    }
     
     public Train nouveauTrainEnRotation() {
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnRotation());
+		TrainFrame.getInstance().rotationTextArea.append(train.getnomTrain()+"Ajouter a la rotation\n");
 		reseauFerroviere.addTrain(train);
+		//train.trainEnRotationEnMarche();
 		return train;
 
 	}
@@ -81,14 +96,14 @@ public class Gare {
     public Train  nouveauTrainEnGare() {
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnGare());
+		TrainFrame.getInstance().quaisTextArea.append(train.getnomTrain()+"Ajouter au Quais\n");
 		train.surLeQuai();
-		return null;
+		return train;
 	}
 
     public Train creerTrainGeneral(int etat) {
 		// TODO Auto-generated method stub
-		String nomTrain = "LE TGV numéro  " + trains.size() + " a été créé " ;
-		System.out.println("nom du train: " + nomTrain);
+		String nomTrain = "TGV " + trains.size()+" ";
 		Train train = new Train(nomTrain, Train.getId(), etat);
 		trains.add(train);
 		return train;
@@ -156,9 +171,11 @@ public class Gare {
 	}
 	
 	public void entreeGare() throws InterruptedException{
-		Train train = aiguilleur.getTrainOnQuais();
+		Train train = reseauFerroviere.getTrain();
 		if(train!=null) {
 			reseauFerroviere.removeTrain(train);
+			
+			//TrainFrame.getInstance().rotationTextArea.replaceSelection("");
 			//aiguilleur.quitterQuais(train);
 			train.entreeEnGare();
 		}

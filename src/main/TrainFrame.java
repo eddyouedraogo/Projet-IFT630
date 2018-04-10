@@ -20,6 +20,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.ScrollPane;
+import java.awt.TextArea;
 
 
 public class TrainFrame extends JFrame{
@@ -29,6 +32,9 @@ public class TrainFrame extends JFrame{
     final static String trainInStat2 = "/resources/TrainInStat2.png";
     final static String rails = "/resources/Rails.png";    
     public JPanel panel; 
+    public JTextArea quaisTextArea;
+    public JTextArea voiesTextArea;
+    public JTextArea rotationTextArea;
 
     private static TrainFrame instance=null ; 
     public static TrainFrame getInstance()
@@ -113,30 +119,30 @@ public class TrainFrame extends JFrame{
         JLabel lblQuais = new JLabel("Quais");
         lblQuais.setBounds(169, 100, 61, 16);
         panel.add(lblQuais);
-        
-        JTextPane txtpnQuaistextpanel = new JTextPane();
-        txtpnQuaistextpanel.setBackground(new Color(255, 250, 240));
-        txtpnQuaistextpanel.setBounds(40, 128, 331, 378);
-        panel.add(txtpnQuaistextpanel);
+
+        quaisTextArea = new JTextArea();
+        quaisTextArea.setBackground(new Color(255, 250, 240));
+        quaisTextArea.setBounds(40, 128, 331, 378);
+        panel.add(quaisTextArea);
         
         JLabel lblVoies = new JLabel("Voies");
         lblVoies.setBounds(566, 100, 61, 16);
         panel.add(lblVoies);
         
-        JTextPane textPane = new JTextPane();
-        textPane.setBackground(new Color(255, 250, 240));
-        textPane.setBounds(394, 128, 375, 378);
-        panel.add(textPane);
+        voiesTextArea = new JTextArea();
+        voiesTextArea.setBackground(new Color(255, 250, 240));
+        voiesTextArea.setBounds(394, 128, 375, 378);
+        panel.add(voiesTextArea);
         
         JLabel lblRotation = new JLabel("Rotation");
         lblRotation.setBounds(962, 100, 61, 16);
         panel.add(lblRotation);
         
-        JTextPane textPane_1 = new JTextPane();
-        textPane_1.setBackground(new Color(255, 250, 240));
-        textPane_1.setBounds(796, 128, 383, 378);
-        panel.add(textPane_1);
-    }        
+        rotationTextArea = new JTextArea();
+        rotationTextArea.setBackground(new Color(255, 250, 240));
+        rotationTextArea.setBounds(796, 128, 383, 378);
+        panel.add(rotationTextArea);
+    }       
 
     
     
