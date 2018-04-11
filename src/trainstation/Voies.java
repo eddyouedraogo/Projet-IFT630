@@ -33,7 +33,7 @@ public class Voies {
 		//}
 		
 		for(int i=0; i<NOMBRE_DE_VOIES; i++) {
-			TrainFrame.getInstance().trainRails("pistes "+i, getVoiesPoint(i));
+			TrainFrame.getInstance().trainRails("Voie "+i, getVoiesPoint(i));
 		}
 
 		for(int i=0; i<NOMBRE_DE_VOIES; i++) {
@@ -75,8 +75,8 @@ public class Voies {
 	private Point getVoiesPoint(int voiesId)
     {
         Point p = new Point();
-        p.x = 50;
-        p.y = 50 + voiesId * 100;
+        p.y = 50;
+        p.x = 50 + voiesId * 300;
         return p;
     }
 
@@ -84,15 +84,15 @@ public class Voies {
     public Point getVoiesDebut(int voiesId)
     {
         Point p = getVoiesPoint(voiesId);
-        p.y = p.y - 50;
+        p.x = p.x - 50;
         return p;
     }
     
     public Point getVoiesFin(int voiesId)
     {
         Point p = getVoiesPoint(voiesId);
-        p.x = p.x+1000;
-        p.y = p.y-50;
+        p.y = p.y+1000;
+        p.x = p.x-50;
         return p;
     }    
 

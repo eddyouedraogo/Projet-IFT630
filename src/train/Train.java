@@ -10,6 +10,8 @@ import main.TrainFrame;
 import trainstation.Gare;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
@@ -508,8 +510,12 @@ public class Train {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				};
-				
-				Point posTrain = getPosition();
+				JLabel test = new JLabel("depart");
+				test.setBounds(1700, 42, 56, 16);
+
+                TrainFrame.getInstance().panel.add(test);
+               
+				Point posTrain =  test.getBounds().getLocation();
 				Point posInQuais = gareDeTrain.aiguilleur.getTrainPoint(locomotiveX);
 				
 				while (true)
@@ -536,7 +542,6 @@ public class Train {
 		{
 			public void run()
 			{     
-				setImage(ETAT_EN_MARCHE);
 				Rectangle rectangle = TrainFrame.getInstance().getBounds();
 				Point pd = makePoint(0,0);
 				Point pf = makePoint(0,0);
@@ -556,7 +561,7 @@ public class Train {
                     try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
                     setPosition(p);
 				}
-                 
+				setImage(ETAT_EN_MARCHE);
 			}                       
 		};
 		thread.start();

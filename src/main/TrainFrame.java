@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.ScrollPane;
 import java.awt.TextArea;
+import javax.swing.border.TitledBorder;
 
 
 public class TrainFrame extends JFrame{
@@ -49,7 +50,7 @@ public class TrainFrame extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         getContentPane().setLayout(null);
-        setSize(new Dimension(1200, 900));
+        setSize(new Dimension(1804, 1031));
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -57,64 +58,68 @@ public class TrainFrame extends JFrame{
         revalidate();
         panel = new JPanel();
         panel.setBackground(Color.WHITE);
-        panel.setBounds(6,6,getBounds().width, getBounds().height);        
+        panel.setBounds(6,6,1768, 983);        
         
         
         getContentPane().add(panel);
         panel.setLayout(null);       
         
+        JPanel panel_1 = new JPanel();
+        panel_1.setBorder(new TitledBorder(null, "Boutons de control", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_1.setBounds(1564, 818, 192, 152);
+        panel.add(panel_1);
+        panel_1.setLayout(null);
         
-        JButton btnEntreeEnGare = new JButton("Nouveau Train en Gare");
-        btnEntreeEnGare.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-              Gare.getInstance().nouveauTrainEnGare();
-            }
-        });
-        btnEntreeEnGare.setBounds(40, 18, 150, 23);
-        panel.add(btnEntreeEnGare);
         
-        JButton btnDepart = new JButton("Depart");
+        JButton btnEntreeEnGare = new JButton(" + Quais ");
+        btnEntreeEnGare.setBounds(6, 18, 180, 23);
+        panel_1.add(btnEntreeEnGare);
+        
+        JButton btnDepart = new JButton("+ ROTATION");
+        btnDepart.setBounds(6, 50, 180, 23);
+        panel_1.add(btnDepart);
+        
+                JButton btnSortirTrainGare = new JButton("Quitter QUAIS");
+                btnSortirTrainGare.setBounds(6, 86, 180, 23);
+                panel_1.add(btnSortirTrainGare);
+                
+                JButton btnEntreeTrainGare = new JButton("Rotation -> Quais");
+                btnEntreeTrainGare.setBounds(6, 122, 180, 23);
+                panel_1.add(btnEntreeTrainGare);
+                btnEntreeTrainGare.addMouseListener(new MouseAdapter() {
+                	@Override
+                	public void mouseClicked(MouseEvent e) {
+                		try {
+					Gare.getInstance().entreeGare();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                	}
+                });
+                btnSortirTrainGare.addMouseListener(new MouseAdapter() {
+                	@Override
+                	public void mouseClicked(MouseEvent e) {
+                		try {
+					Gare.getInstance().quitterGare();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                	}
+                });
         btnDepart.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                Gare.getInstance().nouveauTrainEnRotation();
             }
         });
-        btnDepart.setBounds(221, 18, 150, 23);
-        panel.add(btnDepart);        
-
-        JButton btnSortirTrainGare = new JButton("Quitter Gare");
-        btnSortirTrainGare.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		try {
-					Gare.getInstance().quitterGare();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
+        btnEntreeEnGare.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              Gare.getInstance().nouveauTrainEnGare();
+            }
         });
-        
-        btnSortirTrainGare.setBounds(429, 18, 150, 23);
-        panel.add(btnSortirTrainGare);
-        
-        JButton btnEntreeTrainGare = new JButton("Entree Gare");
-        btnEntreeTrainGare.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		try {
-					Gare.getInstance().entreeGare();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
-        });
-        
-        btnEntreeTrainGare.setBounds(637, 18, 180, 23);
-        panel.add(btnEntreeTrainGare);
         /*
         JLabel lblQuais = new JLabel("Quais");
         lblQuais.setBounds(169, 100, 61, 16);
@@ -174,7 +179,7 @@ public class TrainFrame extends JFrame{
         JLabel lblNewLabel = new JLabel(name);
      
         lblNewLabel.setIcon(new ImageIcon(TrainFrame.class.getResource(rails)));
-        lblNewLabel.setBounds(p.x, p.y, 1000, 100);
+        lblNewLabel.setBounds( p.x, p.y, 100,1000);
         lblNewLabel.setVisible(true);
         panel.add(lblNewLabel);        
         panel.revalidate();
