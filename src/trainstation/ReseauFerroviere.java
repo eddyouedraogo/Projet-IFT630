@@ -8,7 +8,7 @@ import train.*;
 public class ReseauFerroviere {
 
 
-	private ArrayList<Train> trains = new ArrayList<Train>();
+	public ArrayList<Train> trains = new ArrayList<Train>();
 	private static Semaphore mutex = new Semaphore(1);
 	/**
 	 * GESTION DE LA GARE ET DES SEMAPHORES

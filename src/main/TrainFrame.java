@@ -32,9 +32,9 @@ public class TrainFrame extends JFrame{
     final static String trainInStat2 = "/resources/TrainInStat2.png";
     final static String rails = "/resources/Rails.png";    
     public JPanel panel; 
-    public JTextArea quaisTextArea;
-    public JTextArea voiesTextArea;
-    public JTextArea rotationTextArea;
+    //public JTextArea quaisTextArea;
+    //public JTextArea voiesTextArea;
+    //public JTextArea rotationTextArea;
 
     private static TrainFrame instance=null ; 
     public static TrainFrame getInstance()
@@ -115,14 +115,14 @@ public class TrainFrame extends JFrame{
         
         btnEntreeTrainGare.setBounds(637, 18, 180, 23);
         panel.add(btnEntreeTrainGare);
-        
+        /*
         JLabel lblQuais = new JLabel("Quais");
         lblQuais.setBounds(169, 100, 61, 16);
         panel.add(lblQuais);
 
         quaisTextArea = new JTextArea();
         quaisTextArea.setBackground(new Color(255, 250, 240));
-        quaisTextArea.setBounds(40, 128, 331, 378);
+        quaisTextArea.setBounds(40, 128, 331, 634);
         panel.add(quaisTextArea);
         
         JLabel lblVoies = new JLabel("Voies");
@@ -131,7 +131,7 @@ public class TrainFrame extends JFrame{
         
         voiesTextArea = new JTextArea();
         voiesTextArea.setBackground(new Color(255, 250, 240));
-        voiesTextArea.setBounds(394, 128, 375, 378);
+        voiesTextArea.setBounds(394, 128, 375, 634);
         panel.add(voiesTextArea);
         
         JLabel lblRotation = new JLabel("Rotation");
@@ -140,8 +140,8 @@ public class TrainFrame extends JFrame{
         
         rotationTextArea = new JTextArea();
         rotationTextArea.setBackground(new Color(255, 250, 240));
-        rotationTextArea.setBounds(796, 128, 383, 378);
-        panel.add(rotationTextArea);
+        rotationTextArea.setBounds(796, 128, 383, 634);
+        panel.add(rotationTextArea);*/
     }       
 
     
@@ -173,7 +173,7 @@ public class TrainFrame extends JFrame{
     {       
         JLabel lblNewLabel = new JLabel(name);
      
-        lblNewLabel.setIcon(new ImageIcon(TrainFrame.class.getResource(trainInStat2)));
+        lblNewLabel.setIcon(new ImageIcon(TrainFrame.class.getResource(rails)));
         lblNewLabel.setBounds(p.x, p.y, 1000, 100);
         lblNewLabel.setVisible(true);
         panel.add(lblNewLabel);        

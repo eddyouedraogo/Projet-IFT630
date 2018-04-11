@@ -1,6 +1,7 @@
 package trainstation;
 
 import java.util.ArrayList;
+
 import java.util.concurrent.*;
 
 import client.Voyageur;
@@ -10,6 +11,9 @@ import java.util.List;
 import train.*;
 
 import java.awt.*;
+
+import javax.swing.*;
+
 public class Quais {
 	/**
 	 * GESTION DE L'ENTR�E EN GARE DES TRAINS  "sur les QUAIS"
@@ -18,11 +22,13 @@ public class Quais {
 	 * exclusion mutuelles sur les regions critiques
 	 */
 	static final int NOMBRE_DE_QUAIS = 10;
-	Train[] locomotive = new Train[NOMBRE_DE_QUAIS];
+	public Train[] locomotive = new Train[NOMBRE_DE_QUAIS];
 	private static Semaphore mutexQuais = new Semaphore(1);
 	//	creation tableau de semaphore pour les 10 quais
 	private static Semaphore[] semaphoreQuais = new Semaphore[NOMBRE_DE_QUAIS];
 	private static Semaphore entreeQuai = new Semaphore(NOMBRE_DE_QUAIS);
+	
+	JLabel[] labels = new JLabel[NOMBRE_DE_QUAIS];
 	
 	/**
 	 * Ajout de passager sur le quais,
@@ -49,8 +55,8 @@ public class Quais {
 			semaphoreQuais[i] = new Semaphore(1);
 		}
 		
-		for(int i=0; i<CAPACITE; i++) {
-			semaphorePassager[i] = new Semaphore(1);
+		for(int i=0; i<NOMBRE_DE_QUAIS; i++) {
+			labels[i] = TrainFrame.getInstance().createStationnementLabel("Quais "+i, pointQuais(i));
 		}
 	}	
 
@@ -102,6 +108,7 @@ public class Quais {
 		int numeroQuai = rechercheQuaiAliberer(train);
 
 		semaphoreQuais[numeroQuai].acquire();
+		train.animerQuitterQuais(numeroQuai);
 		// aucun train n'occupe ce quai anymore
 		locomotive[numeroQuai] = null;
 		semaphoreQuais[numeroQuai].release();

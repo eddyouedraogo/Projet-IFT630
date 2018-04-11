@@ -30,8 +30,8 @@ public class Gare {
 		return instance;
 	}
 
-	private ArrayList<Voyageur> passagers = new ArrayList<Voyageur>();
-	private ArrayList<Train> trains = new ArrayList<Train>();
+	public ArrayList<Voyageur> passagers = new ArrayList<Voyageur>();
+	public ArrayList<Train> trains = new ArrayList<Train>();
 
 
 	private Gare()
@@ -49,12 +49,12 @@ public class Gare {
 		 * initilisaton de personnes sur les quais PARTIE EDDY
 		 */
 		//		intialisation de 5 trains en gare
-		TrainFrame.getInstance().quaisTextArea.append("INITIALISATION DE 5 TRAINS EN GARE\n");
+		//TrainFrame.getInstance().quaisTextArea.append("INITIALISATION DE 5 TRAINS EN GARE\n");
 		for(int k=0 ; k<5;k++)
 			nouveauTrainEnGare();
 		//		intialisation de 15 trains en rotation
 
-		TrainFrame.getInstance().rotationTextArea.append("INITIALISATION DE 5 TRAINS EN ROTATION\n");
+		//TrainFrame.getInstance().rotationTextArea.append("INITIALISATION DE 5 TRAINS EN ROTATION\n");
 		for(int j=0 ; j<5;j++)
 			nouveauTrainEnRotation();
 		
@@ -86,7 +86,7 @@ public class Gare {
     public Train nouveauTrainEnRotation() {
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnRotation());
-		TrainFrame.getInstance().rotationTextArea.append(train.getnomTrain()+"Ajouter a la rotation\n");
+		//TrainFrame.getInstance().rotationTextArea.append(train.getId()+"Ajouter a la rotation\n");
 		reseauFerroviere.addTrain(train);
 		//train.trainEnRotationEnMarche();
 		return train;
@@ -96,16 +96,18 @@ public class Gare {
     public Train  nouveauTrainEnGare() {
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnGare());
-		TrainFrame.getInstance().quaisTextArea.append(train.getnomTrain()+"Ajouter au Quais\n");
+		//TrainFrame.getInstance().quaisTextArea.append(train.getId()+"Ajouter au Quais\n");
 		train.surLeQuai();
 		return train;
 	}
 
     public Train creerTrainGeneral(int etat) {
 		// TODO Auto-generated method stub
-		String nomTrain = "TGV " + trains.size()+" ";
+		String nomTrain = "TGV ";
 		Train train = new Train(nomTrain, Train.getId(), etat);
 		trains.add(train);
+		int trainId = trains.size();
+		train.setId(trainId);
 		return train;
 
 	}

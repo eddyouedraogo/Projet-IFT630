@@ -2,8 +2,12 @@ package trainstation;
 
 import java.util.ArrayList;
 import java.util.concurrent.*;
+
+import main.TrainFrame;
+
 import java.util.List;
 import train.*;
+import java.awt.*;
 
 public class Voies {
 
@@ -15,7 +19,7 @@ public class Voies {
 	 */
 
 	static final int NOMBRE_DE_VOIES = 4;
-	Train[] locomotive = new Train[NOMBRE_DE_VOIES];
+	public Train[] locomotive = new Train[NOMBRE_DE_VOIES];
 	private static Semaphore mutexVoies = new Semaphore(1);
 	//	creation tableau de semaphore pour les 5 quais
 	private static Semaphore[] semaphoreVoie = new Semaphore[NOMBRE_DE_VOIES];
@@ -27,6 +31,10 @@ public class Voies {
 		//for(int i=0; i<NOMBRE_DE_VOIES; i++) {
 		//	locomotive[i] =null;
 		//}
+		
+		for(int i=0; i<NOMBRE_DE_VOIES; i++) {
+			TrainFrame.getInstance().trainRails("pistes "+i, getVoiesPoint(i));
+		}
 
 		for(int i=0; i<NOMBRE_DE_VOIES; i++) {
 			semaphoreVoie[i] = new Semaphore(1);
@@ -63,5 +71,29 @@ public class Voies {
 			}
 		}
 	}
+	
+	private Point getVoiesPoint(int voiesId)
+    {
+        Point p = new Point();
+        p.x = 50;
+        p.y = 50 + voiesId * 100;
+        return p;
+    }
+
+    
+    public Point getVoiesDebut(int voiesId)
+    {
+        Point p = getVoiesPoint(voiesId);
+        p.y = p.y - 50;
+        return p;
+    }
+    
+    public Point getVoiesFin(int voiesId)
+    {
+        Point p = getVoiesPoint(voiesId);
+        p.x = p.x+1000;
+        p.y = p.y-50;
+        return p;
+    }    
 
 }
