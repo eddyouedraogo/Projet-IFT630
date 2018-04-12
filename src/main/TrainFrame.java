@@ -29,7 +29,7 @@ import javax.swing.border.TitledBorder;
 public class TrainFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;    
-	final static String trainInStat1 = "/resources/TrainInStat1.png";
+	final static String trainInStat1 = "/resources/silverTrain.png";
 	final static String trainInStat2 = "/resources/TrainInStat2.png";
 	final static String rails = "/resources/Rails.png";  
 	public int compteur_rotation =5;
@@ -68,7 +68,7 @@ public class TrainFrame extends JFrame{
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Boutons de control", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(1564, 818, 192, 152);
+		panel_1.setBounds(1465, 820, 192, 152);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -82,7 +82,7 @@ public class TrainFrame extends JFrame{
 		panel_1.add(btnDepart);
 
 		JButton btnSortirTrainGare = new JButton("Quitter QUAIS");
-		btnSortirTrainGare.setBounds(6, 86, 180, 23);
+		btnSortirTrainGare.setBounds(6, 84, 180, 23);
 		panel_1.add(btnSortirTrainGare);
 
 		JButton btnEntreeTrainGare = new JButton("Rotation -> Quais: " +  Integer.toString(compteur_rotation) );
@@ -244,7 +244,8 @@ public class TrainFrame extends JFrame{
 	public JLabel createStationnementLabel(String name, Point p)
 	{       
 		JLabel lblNewLabel = new JLabel(name);
-		lblNewLabel.setBackground(Color.yellow);
+		//lblNewLabel.setBackground(Color.yellow);
+		lblNewLabel.setIcon(new ImageIcon(TrainFrame.class.getResource("/resources/Station.png")));
 		lblNewLabel.setOpaque(true);
 
 		lblNewLabel.setBounds(p.x, p.y, 130  , 130);

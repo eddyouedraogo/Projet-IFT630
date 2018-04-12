@@ -453,7 +453,7 @@ public class Train {
                     try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
                     setPosition(pd);
                 }
-				
+				//hidetrain();
 				setImage(ETAT_EN_GARE);
 				
 				//TrainFrame.getInstance().quaisTextArea.append(thisTrain.getId() + " Accede au Quais " + gareDeTrain.aiguilleur.locomotive.length +"\n");
@@ -526,6 +526,7 @@ public class Train {
                     try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
                     setPosition(posTrain);
 				}
+				//hidetrain();
 				setImage(ETAT_EN_GARE);
 			}                       
 		};
@@ -542,26 +543,27 @@ public class Train {
 		{
 			public void run()
 			{     
-				Rectangle rectangle = TrainFrame.getInstance().getBounds();
-				Point pd = makePoint(0,0);
-				Point pf = makePoint(0,0);
-				Point p = pd;
+				//Rectangle rectangle = TrainFrame.getInstance().getBounds();
+				//Point pd = makePoint(0,0);
+				//Point pf = makePoint(0,0);
+				//Point p = pd;
 				
 				
 				while(true) {
 					if(etat != ETAT_EN_MARCHE) break;
 					//TrainFrame.getInstance().rotationTextArea.append(nomTrain+" est en Marche\n");
-					if((p.x == pf.x)&&(p.y == pf.y)) {
+					
+					/*if((p.x == pf.x)&&(p.y == pf.y)) {
 						pd = makePoint(getRandom(0, rectangle.width), rectangle.height);
 						pf = makePoint(rectangle.width, rectangle.height-(rectangle.width-pd.x));
 	                    p=pd;
 					}
 					p = getNextPoint(p, pf);
-
+                        */
                     try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
-                    setPosition(p);
+                    //setPosition(p);
 				}
-				setImage(ETAT_EN_MARCHE);
+				//setImage(ETAT_EN_MARCHE);
 			}                       
 		};
 		thread.start();
@@ -591,11 +593,11 @@ public class Train {
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
 				break;
 			case ETAT_EN_MARCHE:
-				imageTrain = "/resources/TrainInRotation.png";
+				imageTrain = "/resources/TrainOnRails.png";
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
 				break;
 			case ETAT_SORTIE_DE_GARE:
-				imageTrain = "/resources/TrainInStat1.png";
+				imageTrain = "/resources/TrainOnRails2.png";
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
 				break;
 			case ETAT_ENTREE_EN_GARE:
