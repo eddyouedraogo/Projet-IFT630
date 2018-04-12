@@ -39,7 +39,6 @@ public class ReseauFerroviere {
 		// ajouter un train a la liste des train sur le reseau ferroviere 
 		try {
 			mutex.acquire();
-			//			trains.add(train);
 			//			parcourir le array pour trouver quel index de train a l'id recherché a éliminer
 			for(int k=0; k<trains.size()-1;k++) {
 				if(trainRecu.equals(trains.get(k))){

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.concurrent.*;
 
 import client.Voyageur;
-import main.TrainFrame;
 
 import java.util.List;
 import train.*;
@@ -68,7 +67,7 @@ public class Gare {
         for (int i=0; i < trains.size()-1; i++ )
             if (trainRecu.equals(trains.get(i)))
             {
-            	//trains.get(i).finalize(); //  delete de laffichage EDDY
+            	trains.get(i).finalize(); //  delete de laffichage EDDY
             	trains.remove(i);                
             } 
     }   
@@ -106,12 +105,26 @@ public class Gare {
 		String nomTrain = "TGV ";
 		Train train = new Train(nomTrain, Train.getId(), etat);
 		trains.add(train);
-		int trainId = trains.size();
-		train.setId(trainId);
 		return train;
 
 	}
-
+    
+    public void quitterGare() throws InterruptedException{
+        Train train = aiguilleur.getTrainOnQuais();
+        if(train!=null) {
+            aiguilleur.quitterQuais(train);
+            train.sortiedeGare();
+        }
+    }
+    
+    public void entreeGare() throws InterruptedException{
+        Train train = reseauFerroviere.getTrain();
+        if(train!=null) {
+            reseauFerroviere.removeTrain(train);
+            train.entreeEnGare();
+        }
+    }
+    
 	public int getStationID() {
 		return stationID;
 	}
@@ -163,45 +176,5 @@ public class Gare {
 			passagers.remove(0);
 		}
 	}
-	
-	public void quitterGare() throws InterruptedException{
-		Train train = aiguilleur.getTrainOnQuais();
-		if(train!=null) {
-			aiguilleur.quitterQuais(train);
-			train.sortiedeGare();
-		}
-	}
-	
-	public void entreeGare() throws InterruptedException{
-		Train train = reseauFerroviere.getTrain();
-		if(train!=null) {
-			reseauFerroviere.removeTrain(train);
-			
-			//TrainFrame.getInstance().rotationTextArea.replaceSelection("");
-			//aiguilleur.quitterQuais(train);
-			train.entreeEnGare();
-		}
-	}
-	
-	//rajouter un chauffeur <
-	//	initialiser liste de chauffeur 
-	//	public Train TrainEnGare() throws InterruptedException
-	//    {   
-	//        condition avant de creer le train
-	//		si le state du chauffeur n'est pas en greve alors on creer le train
-	//	Train train  = creerTrainEnGare(Train.getnomTrain(), Train.getId(), capacite);
-	////      train.();
-	//      return train;
-	//    }
-	//
-	//	private Train creerTrainEnGare() {
-	//		// TODO Auto-generated method stub
-	//		String nom = "LE TGV " + idtrain + " a été créé " ;
-	//		Train train = new Train(nomTrain, idtrain , capacite)
-	//		return train;
-	//	}
-
-
-
 
 }

@@ -35,10 +35,7 @@ public class TrainFrame extends JFrame{
 	public int compteur_rotation =5;
 	public int compteur_train_quai =5;
 	public JPanel panel; 
-	//public JTextArea quaisTextArea;
-	//public JTextArea voiesTextArea;
-	//public JTextArea rotationTextArea;
-
+	
 	private static TrainFrame instance=null ; 
 	public static TrainFrame getInstance()
 	{
@@ -173,33 +170,6 @@ public class TrainFrame extends JFrame{
 		lblNewLabel_1.setBounds(1552, 632, 192, 162);
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setText( Integer.toString(compteur_rotation));
-		/*
-        JLabel lblQuais = new JLabel("Quais");
-        lblQuais.setBounds(169, 100, 61, 16);
-        panel.add(lblQuais);
-
-        quaisTextArea = new JTextArea();
-        quaisTextArea.setBackground(new Color(255, 250, 240));
-        quaisTextArea.setBounds(40, 128, 331, 634);
-        panel.add(quaisTextArea);
-
-        JLabel lblVoies = new JLabel("Voies");
-        lblVoies.setBounds(566, 100, 61, 16);
-        panel.add(lblVoies);
-
-        voiesTextArea = new JTextArea();
-        voiesTextArea.setBackground(new Color(255, 250, 240));
-        voiesTextArea.setBounds(394, 128, 375, 634);
-        panel.add(voiesTextArea);
-
-        JLabel lblRotation = new JLabel("Rotation");
-        lblRotation.setBounds(962, 100, 61, 16);
-        panel.add(lblRotation);
-
-        rotationTextArea = new JTextArea();
-        rotationTextArea.setBackground(new Color(255, 250, 240));
-        rotationTextArea.setBounds(796, 128, 383, 634);
-        panel.add(rotationTextArea);*/
 	}       
 
 
@@ -244,7 +214,6 @@ public class TrainFrame extends JFrame{
 	public JLabel createStationnementLabel(String name, Point p)
 	{       
 		JLabel lblNewLabel = new JLabel(name);
-		//lblNewLabel.setBackground(Color.yellow);
 		lblNewLabel.setIcon(new ImageIcon(TrainFrame.class.getResource("/resources/Station.png")));
 		lblNewLabel.setOpaque(true);
 

@@ -28,9 +28,6 @@ public class Voies {
 
 	public Voies ()
 	{
-		//for(int i=0; i<NOMBRE_DE_VOIES; i++) {
-		//	locomotive[i] =null;
-		//}
 		
 		for(int i=0; i<NOMBRE_DE_VOIES; i++) {
 			TrainFrame.getInstance().trainRails("Voie "+i, getVoiesPoint(i));
