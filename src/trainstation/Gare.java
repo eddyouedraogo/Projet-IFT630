@@ -113,7 +113,7 @@ public class Gare {
             train.sortiedeGare();
         }
     }
-    
+     
     public void entreeGare() throws InterruptedException{
         Train train = reseauFerroviere.getTrain();
         if(train!=null) {

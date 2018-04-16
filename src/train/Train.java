@@ -482,8 +482,8 @@ public class Train {
 					 
 					//if ((p.x == pf.y)&&(p.y == pf.x)){ 
 					if ((p.x == pf.x)&&(p.y == pf.y)){ 
-	                       pd = makePoint(getRandom(0, r.width), r.height);
-	                       pf = makePoint(r.width, r.height-(r.width-pd.x));
+	                       pd = makePoint(-150, -150);
+	                       pf = makePoint(-150, -150);
 	                       p=pd;
 	                      }                      
 	                    
@@ -524,7 +524,8 @@ public class Train {
 			case ETAT_EN_MARCHE:
 				imageTrain = "/resources/TrainOnRails.png";
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 0);
-				label.setVisible(false);
+				//label.setVisible(false);
+				label.setIcon(new ImageIcon(TrainFrame.class.getResource(imageTrain)));
 				break;
 			case ETAT_SORTIE_DE_GARE:
 				imageTrain = "/resources/TrainOnRails2.png";

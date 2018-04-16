@@ -265,7 +265,7 @@ public class Quais {
 		Point point = new Point();
 		Rectangle rectangle = TrainFrame.getInstance().getBounds();
 		point.x = 40 + QuaisId*160;
-		point.y = rectangle.height-750;
+		point.y = rectangle.height-1000;
 		return point;
 	}
 	
