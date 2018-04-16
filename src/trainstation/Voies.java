@@ -53,7 +53,8 @@ public class Voies {
     {
         for (int i = 0; i < NOMBRE_DE_VOIES; i++)
             if (locomotive[i] == null)
-                return i;              
+                return i; 
+        
         return 0;
     }
 	

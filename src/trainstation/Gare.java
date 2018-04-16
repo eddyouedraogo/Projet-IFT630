@@ -56,10 +56,7 @@ public class Gare {
 		//TrainFrame.getInstance().rotationTextArea.append("INITIALISATION DE 5 TRAINS EN ROTATION\n");
 		for(int j=0 ; j<5;j++)
 			nouveauTrainEnRotation();
-		
-		for(int i=0; i<10; i++) {
-			nouveauPassager();
-		}
+
 	}
 
     public void retirerTrain(Train trainRecu)
@@ -67,7 +64,7 @@ public class Gare {
         for (int i=0; i < trains.size()-1; i++ )
             if (trainRecu.equals(trains.get(i)))
             {
-            	trains.get(i).finalize(); //  delete de laffichage EDDY
+            	trains.get(i).finalize(); 
             	trains.remove(i);                
             } 
     }   
@@ -82,7 +79,7 @@ public class Gare {
 		return train;
     }
     
-    public Train nouveauTrainEnRotation() {
+    public Train nouveauTrainEnRotation() throws InterruptedException{
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnRotation());
 		//TrainFrame.getInstance().rotationTextArea.append(train.getId()+"Ajouter a la rotation\n");
@@ -92,7 +89,7 @@ public class Gare {
 
 	}
 
-    public Train  nouveauTrainEnGare() {
+    public Train  nouveauTrainEnGare() throws InterruptedException{
 		// TODO Auto-generated method stub
 		Train train = creerTrainGeneral(Train.getEtatEnGare());
 		//TrainFrame.getInstance().quaisTextArea.append(train.getId()+"Ajouter au Quais\n");
@@ -100,7 +97,7 @@ public class Gare {
 		return train;
 	}
 
-    public Train creerTrainGeneral(int etat) {
+    private Train creerTrainGeneral(int etat) {
 		// TODO Auto-generated method stub
 		String nomTrain = "TGV ";
 		Train train = new Train(nomTrain, Train.getId(), etat);

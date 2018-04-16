@@ -57,7 +57,7 @@ public class TrainFrame extends JFrame{
 		revalidate();
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(6,6,1768, 983);        
+		panel.setBounds(0,0,getBounds().width, getBounds().height);        
 
 
 		getContentPane().add(panel);
@@ -79,6 +79,9 @@ public class TrainFrame extends JFrame{
 		panel_1.add(btnDepart);
 
 		JButton btnSortirTrainGare = new JButton("Quitter QUAIS");
+		btnSortirTrainGare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {}
+		});
 		btnSortirTrainGare.setBounds(6, 84, 180, 23);
 		panel_1.add(btnSortirTrainGare);
 
@@ -150,7 +153,12 @@ public class TrainFrame extends JFrame{
 				//TODO rotation quai + + 
 				btnEntreeTrainGare.setText("Rotation -> Quais: " +  Integer.toString(compteur_rotation));
 
-				Gare.getInstance().nouveauTrainEnRotation();
+				try {
+					Gare.getInstance().nouveauTrainEnRotation();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				if(compteur_rotation !=0) {
 					btnEntreeTrainGare.setEnabled(true);
 				}
@@ -159,7 +167,12 @@ public class TrainFrame extends JFrame{
 		btnEntreeEnGare.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Gare.getInstance().nouveauTrainEnGare();
+				try {
+					Gare.getInstance().nouveauTrainEnGare();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				compteur_train_quai ++;
 				if(compteur_train_quai !=0) {
 					btnSortirTrainGare.setEnabled(true);
