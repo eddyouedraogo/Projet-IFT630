@@ -331,7 +331,7 @@ public class Train {
 				while(true) {
 					if ((pd.x == pf.x)&&(pd.y == pf.y)) break;                    
                     pd = getNextPoint(pd, pf);
-                    try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+                    try  {  Thread.sleep(3);  }   catch (InterruptedException e)  {  }
                     setPosition(pd);
 				}
 				
@@ -346,7 +346,7 @@ public class Train {
                     
                     pd = getNextPoint(pd, pf);
 
-                    try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+                    try  {  Thread.sleep(3);  }   catch (InterruptedException e)  {  }
                     setPosition(pd);
                 }
 	            
@@ -387,7 +387,7 @@ public class Train {
 	                    
 	                    pd = getNextPoint(pd, pf);
 
-	                    try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+	                    try  {  Thread.sleep(3);  }   catch (InterruptedException e)  {  }
 	                    setPosition(pd);
 	                }
 	             
@@ -405,7 +405,7 @@ public class Train {
                 {
                     if ((pd.x == pf.x)&&(pd.y == pf.y)) break;                    
                     pd = getNextPoint(pd, pf);
-                    try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+                    try  {  Thread.sleep(3);  }   catch (InterruptedException e)  {  }
                     setPosition(pd);
                 }
 				setImage(ETAT_EN_GARE);
@@ -451,7 +451,7 @@ public class Train {
 				{
 					if ((pd.x == pf.x)&&(pd.y == pf.y)) break;                    
 					pd = getNextPoint(pd, pf);
-                    try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+                    try  {  Thread.sleep(3);  }   catch (InterruptedException e)  {  }
                     setPosition(pd);
 				}
 				setImage(ETAT_EN_GARE);
@@ -489,7 +489,7 @@ public class Train {
 	                    
 	                    p = getNextPoint(p, pf);
 
-                    try  {  Thread.sleep(5);  }   catch (InterruptedException e)  {  }
+                    try  {  Thread.sleep(3);  }   catch (InterruptedException e)  {  }
                     setPosition(p);
 				}
 			}                       

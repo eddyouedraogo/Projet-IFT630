@@ -70,7 +70,7 @@ public class TrainFrame extends JFrame{
 		panel_1.setLayout(null);
 
 
-		JButton btnEntreeEnGare = new JButton(" + Quais ");
+		JButton btnEntreeEnGare = new JButton(" + Quais: " +  Integer.toString(compteur_train_quai));
 		btnEntreeEnGare.setBounds(6, 18, 180, 23);
 		panel_1.add(btnEntreeEnGare);
 
@@ -99,7 +99,10 @@ public class TrainFrame extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
+
 					compteur_train_quai ++;
+					System.out.println(compteur_train_quai);
+
 					if(compteur_train_quai !=0) {
 						btnSortirTrainGare.setEnabled(true);
 						
@@ -112,13 +115,14 @@ public class TrainFrame extends JFrame{
 						
 						btnEntreeTrainGare.setText("Rotation -> Quais: " +  Integer.toString(compteur_rotation));
 
-						System.out.println(compteur_rotation);
+						//System.out.println(compteur_rotation);
 					}else {
 						compteur_rotation=0;
 						btnEntreeTrainGare.setText("Rotation -> Quais: " +  Integer.toString(compteur_rotation));
 						btnEntreeTrainGare.setEnabled(false);
 					}
 					compteur_rotation --;
+					btnEntreeEnGare.setText("Quais: " +  Integer.toString(compteur_train_quai));
 
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
@@ -126,15 +130,18 @@ public class TrainFrame extends JFrame{
 				}
 			}
 		});
+		if(compteur_train_quai>=0) {
+
 		btnSortirTrainGare.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					compteur_train_quai --;
-
+					
 					if(compteur_train_quai ==0) {
 						btnSortirTrainGare.setEnabled(false);
 					}
+					else {
+						
 					compteur_rotation ++;
 					Gare.getInstance().quitterGare();
 
@@ -145,12 +152,20 @@ public class TrainFrame extends JFrame{
 					}
 					btnEntreeTrainGare.setText("Rotation -> Quais: " +  Integer.toString(compteur_rotation));
 
+					}
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				compteur_train_quai --;
+				if(compteur_train_quai>=0)
+					btnEntreeEnGare.setText(" Quais: " +  Integer.toString(compteur_train_quai));
+				if(compteur_train_quai ==0) {
+					btnSortirTrainGare.setEnabled(false);
+				}
+
 			}
-		});
+		});}
 		btnDepart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -179,6 +194,8 @@ public class TrainFrame extends JFrame{
 					e1.printStackTrace();
 				}
 				compteur_train_quai ++;
+				btnEntreeEnGare.setText("Quais: " +  Integer.toString(compteur_train_quai));
+
 				if(compteur_train_quai !=0) {
 					btnSortirTrainGare.setEnabled(true);
 				}
