@@ -519,21 +519,25 @@ public class Train {
 			case ETAT_EN_GARE:
 				imageTrain = "/resources/RedTrain.png";
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
+				label.setIcon(new ImageIcon(TrainFrame.class.getResource(imageTrain)));
 				break;
 			case ETAT_EN_MARCHE:
 				imageTrain = "/resources/TrainOnRails.png";
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 0);
+				label.setVisible(false);
 				break;
 			case ETAT_SORTIE_DE_GARE:
 				imageTrain = "/resources/TrainOnRails2.png";
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
+				label.setIcon(new ImageIcon(TrainFrame.class.getResource(imageTrain)));
 				break;
 			case ETAT_ENTREE_EN_GARE:
 				imageTrain = "/resources/TrainEntrance.png";
 				TrainFrame.getInstance().panel.setComponentZOrder(label, 1);
+				label.setIcon(new ImageIcon(TrainFrame.class.getResource(imageTrain)));
 				break;
 		}
-		label.setIcon(new ImageIcon(TrainFrame.class.getResource(imageTrain)));
+		
 	}
 	
     private void setPosition(Point p)
