@@ -73,7 +73,7 @@ public class Voies {
 	private Point getVoiesPoint(int voiesId)
     {
         Point p = new Point();
-        p.y = 50;
+        p.y = 100;
         p.x = 50 + voiesId * 300;
         return p;
     }
@@ -89,7 +89,7 @@ public class Voies {
     public Point getVoiesFin(int voiesId)
     {
         Point p = getVoiesPoint(voiesId);
-        p.y = p.y+1000;
+        p.y = p.y+800;
         p.x = p.x-50;
         return p;
     }    

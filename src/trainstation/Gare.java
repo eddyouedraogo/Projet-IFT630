@@ -54,7 +54,7 @@ public class Gare {
 		//		intialisation de 15 trains en rotation
 
 		//TrainFrame.getInstance().rotationTextArea.append("INITIALISATION DE 5 TRAINS EN ROTATION\n");
-		for(int j=0 ; j<5;j++)
+		for(int j=0 ; j<7;j++)
 			nouveauTrainEnRotation();
 
 	}

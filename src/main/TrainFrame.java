@@ -49,7 +49,7 @@ public class TrainFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		getContentPane().setLayout(null);
-		setSize(new Dimension(1804, 1031));
+		setSize(new Dimension(1804, 1147));
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -57,7 +57,7 @@ public class TrainFrame extends JFrame{
 		revalidate();
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0,0,getBounds().width, getBounds().height);        
+		panel.setBounds(0,0,1804, 1047);        
 
 
 		getContentPane().add(panel);
@@ -86,6 +86,10 @@ public class TrainFrame extends JFrame{
 		panel_1.add(btnSortirTrainGare);
 
 		JButton btnEntreeTrainGare = new JButton("Rotation -> Quais: " +  Integer.toString(compteur_rotation) );
+		btnEntreeTrainGare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnEntreeTrainGare.setBounds(6, 122, 180, 23);
 		panel_1.add(btnEntreeTrainGare);
 
@@ -96,16 +100,15 @@ public class TrainFrame extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				try {
 					compteur_train_quai ++;
-
 					if(compteur_train_quai !=0) {
 						btnSortirTrainGare.setEnabled(true);
 						
 					}
-					if(compteur_rotation>1) {
+					if(compteur_rotation>=1) {
 						//TODO ajouter le enalb edans la +train rotation
 						btnEntreeTrainGare.setEnabled(true);
 						Gare.getInstance().entreeGare();
-						compteur_rotation --;
+//						compteur_rotation --;
 						
 						btnEntreeTrainGare.setText("Rotation -> Quais: " +  Integer.toString(compteur_rotation));
 
@@ -115,6 +118,8 @@ public class TrainFrame extends JFrame{
 						btnEntreeTrainGare.setText("Rotation -> Quais: " +  Integer.toString(compteur_rotation));
 						btnEntreeTrainGare.setEnabled(false);
 					}
+					compteur_rotation --;
+
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -215,7 +220,7 @@ public class TrainFrame extends JFrame{
 		JLabel lblNewLabel = new JLabel(name);
 
 		lblNewLabel.setIcon(new ImageIcon(TrainFrame.class.getResource(rails)));
-		lblNewLabel.setBounds( p.x, p.y, 100,1000);
+		lblNewLabel.setBounds( p.x, p.y, 100,1100);
 		lblNewLabel.setVisible(true);
 		panel.add(lblNewLabel);        
 		panel.revalidate();
